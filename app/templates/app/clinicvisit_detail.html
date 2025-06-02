@@ -1,0 +1,46 @@
+{% extends 'app/base.html' %}
+
+{% block title %}
+  Clinic Visit
+{% endblock %}
+
+{% block content %}
+  <div class="dash-content">
+    <div class="overview">
+      <div class="title">
+        <a href="{% url 'clinicvisits' %}"><span class="text">Clinic Visit</span></a><i class="uil uil-angle-right-b"></i>
+        <span class="text">Manage</span>
+      </div>
+      <div class="table_box">
+        <div class="table_container">
+          <ul class=""> 
+            <li>
+              <h1>{{ clinicvisit.date }}</h1>
+            </li>
+            <li>
+              <span>{{ clinicvisit.time_in }}</span>
+            </li>
+            <li>
+              <span>{{ clinicvisit.user.first_name }} {{ clinicvisit.user.last_name }}</span>
+            </li>
+            <li>
+              <span>{{ clinicvisit.user.department }}</span>
+            </li>
+            <li>
+              <span>{{ clinicvisit.user.level }}</span>
+            </li>
+            <li>
+              <span>{{ clinicvisit.complaints }}</span>
+            </li>
+            <li>
+              <span>{{ clinicvisit.medical_intervention }}</span>
+            </li>
+            <li>
+              <span>{{ clinicvisit.remarks }}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

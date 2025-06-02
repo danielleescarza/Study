@@ -1,0 +1,62 @@
+{% extends 'app/base.html' %}
+
+{% block title %}
+  Clinic Visit
+{% endblock %}
+
+{% block content %}
+  {% if user.is_authenticated %}
+    <div class="dash-content">
+      <div class="overview">
+        <div class="title">
+          <a href="{% url 'clinicvisits' %}"><span class="text">Clinic Visit</span></a>
+        </div>
+        <div class="clinicvisit-btn">
+          <a href="{% url 'clinicvisits_create' %}" class="signup">
+            ADD A CLINIC VISIT<div class="arrow-wrapper">
+              <div class="arrow"></div>
+            </div>
+          </a>
+        </div>
+        <div class="table_box">
+          <div class="table_container">
+            <table>
+              <tr>
+                <th>Date</th>
+                <th>Time-in</th>
+                <th>Name</th>
+                <th>Department</th>
+                <th>Level</th>
+                <th>Complaints</th>
+                <th>Medical Intervention</th>
+                <th>Remarks</th>
+              </tr>
+              {% for clinicvisit in clinicvisits %}
+                <a href="{% url 'clinicvisits_detail' clinicvisit.pk %}">
+                  <tr class="data clickable-row" data-href="{% url 'clinicvisits_detail' clinicvisit.pk %}">
+                    {% comment %} <td>
+                      <a href="{% url 'clinicvisit_update' clinicvisit.pk %}" class="edit">UPDATE</a>&nbsp;&nbsp;
+                      <a href="{% url 'clinicvisit_delete' clinicvisit.pk %}" class="edit">DELETE</a>
+                    </td> {% endcomment %}
+                    <td>{{ clinicvisit.date }}</td>
+                    <td>{{ clinicvisit.time_in }}</td>
+                    <td>{{ clinicvisit.user.first_name }} {{ clinicvisit.user.last_name }}</td>
+                    <td>{{ clinicvisit.user.department }}</td>
+                    <td>{{ clinicvisit.user.level }}</td>
+                    <td>{{ clinicvisit.complaints }}</td>
+                    <td>{{ clinicvisit.medical_intervention }}</td>
+                    <td>{{ clinicvisit.remarks }}</td>
+                  </tr>
+                </a>
+              {% empty %}
+                <tr>
+                  <td colspan="8" class="no-records">No clinic visits found</td>
+                </tr>
+              {% endfor %}
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+{% endblock %}

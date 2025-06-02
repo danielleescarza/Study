@@ -1,0 +1,58 @@
+{% extends 'app/base.html' %}
+
+{% block title %}
+  Manage Accounts
+{% endblock %}
+
+{% block content %}
+  <div class="dash-content">
+    <div class="overview">
+      <div class="title">
+        <span class="text">Manage Accounts</span>
+      </div>
+      <div class="table_box">
+        <div class="table_container">
+          <div class="create_body">
+            <div class="create">
+              <form method="POST">
+                {% csrf_token %}
+                <div class="select">
+                  <select id="user_type" name="user_type" required>
+                    <option value="" disabled selected hidden>Select user type</option>
+                    <option value="student">Student</option>
+                    <option value="employee">Employee</option>
+                    <option value="admin">Admin</option>
+                  </select>
+                </div>
+                <div class="input-box">
+                  <input type="text" class="input-field" placeholder="Username" name="username" required />
+                </div>
+                <div class="input-box">
+                  <input type="text" class="input-field" placeholder="First Name" name="first_name" required />
+                </div>
+                <div class="input-box">
+                  <input type="text" class="input-field" placeholder="Last Name" name="last_name" required />
+                </div>
+                <div class="input-box">
+                  <input type="text" class="input-field" placeholder="Department" name="department" required />
+                </div>
+                <div class="input-box">
+                  <input type="text" class="input-field" placeholder="Level" name="level" required />
+                </div>
+                <div class="input-box">
+                  <input type="password" class="input-field" placeholder="Password" name="password1" required />
+                </div>
+                <div class="input-box">
+                  <input type="password" class="input-field" placeholder="Confirm Password" name="password2" required />
+                </div>
+                <div class="input-submit">
+                  <button class="submit-btn" type="submit"><label>Create</label></button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
