@@ -10,10 +10,26 @@
       <div class="title">
         <a href="{% url 'clinicvisits' %}"><span class="text">Clinic Visit</span></a><i class="uil uil-angle-right-b"></i>
         <span class="text">Add a CLinic Visit</span>
-      </div>
-      <div class="table_box">
+      </div>  
         <div class="table_container">
-
+          <div class="create_body">
+            <div class="create">
+              <form method="POST">
+                {% csrf_token %}
+                <input list="patients" name="user" id="user" class="form-control" required placeholder="Select a patient" />
+                <datalist id="patients">
+                  {% for user in users %}
+                    <option value="{{ user.first_name }} {{ user.last_name }}">
+                      {{ user.first_name }} {{ user.last_name }}
+                      {% if user.department %}
+                        ({{ user.department }})
+                      {% endif %}
+                    </option>
+                  {% endfor %}
+                </datalist>
+              </form>
+            </div>
+          </div>
         </div>
       </div>
     </div>
