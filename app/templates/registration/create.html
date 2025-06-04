@@ -15,10 +15,9 @@
           <div class="create_body">
             <div class="create">
               <form method="POST">
-                <!-- Adjust the action URL as needed -->
                 {% csrf_token %}
                 <div class="input-box">
-                  <select id="user_type" name="user_type" required>
+                  <select id="user_type" name="user_type" required onchange="updateForm()">
                     <option value="" disabled selected>User Type</option>
                     <option value="student">Student</option>
                     <option value="employee">Employee</option>
@@ -27,22 +26,22 @@
                 </div>
                 <div class="input-group">
                   <div class="input-box">
-                    <input type="text" class="input-field" id="uid" name="uid" placeholder="Enter UID" />
+                    <input type="text" class="input-field" id="uid" name="uid" placeholder="Tap ID" />
                   </div>
                   <div class="input-box">
-                    <input type="number" class="input-field" id="student_number" name="student_number" placeholder="Enter Student Number" min="1" required />
+                    <input type="text" class="input-field" id="student_number" name="student_number" placeholder="Student Number" min="1" required />
                   </div>
                 </div>
                 <div class="input-group">
                   <div class="input-box">
-                    <input type="text" class="input-field" id="first_name" name="first_name" placeholder="Enter First Name" required />
+                    <input type="text" class="input-field" id="first_name" name="first_name" placeholder="First Name" required />
                   </div>
                   <div class="input-box">
-                    <input type="text" class="input-field" id="last_name" name="last_name" placeholder="Enter Last Name" required />
+                    <input type="text" class="input-field" id="last_name" name="last_name" placeholder="Last Name" required />
                   </div>
                 </div>
                 <div class="input-box">
-                  <select id="department" name="department" required>
+                  <select id="department" name="department" required onchange="updateDepartment()">
                     <option value="BED">Basic Education Department</option>
                     <option value="BSN">Bachelor of Science in Nursing</option>
                     <option value="BSCS">Bachelor of Science in Computer Science</option>
@@ -54,14 +53,20 @@
                     <option value="BEEd">Bachelor of Science in Elementary Education</option>
                     <option value="BSEd-Filipino">Bachelor of Science in Secondary Education Major in Filipino</option>
                     <option value="BSEd-English">Bachelor of Science in Secondary Education Major in English</option>
+                    <option value="College">College Department</option>
+                    <option value="Accounting">Accounting Department</option>
                   </select>
                 </div>
-                <select id="level" name="level" required>
-                  <option value="first_year">1st Year</option>
-                  <option value="second_year">2nd Year</option>
-                  <option value="third_year">3rd Year</option>
-                  <option value="fourth_year">4th Year</option>
-                </select>
+                <div class="input-box" id="level-container">
+                  <select id="level" name="level" required>
+                    <option value="1">Grade 1</option>
+                    <option value="2">Grade 2</option>
+                    <option value="first_year">1st Year</option>
+                    <option value="second_year">2nd Year</option>
+                    <option value="third_year">3rd Year</option>
+                    <option value="fourth_year">4th Year</option>
+                  </select>
+                </div>
                 <div class="input-box">
                   <input type="password" class="input-field" id="password1" name="password1" placeholder="Enter Password" required />
                 </div>
@@ -78,4 +83,79 @@
       </div>
     </div>
   </div>
+
+  <script>
+    function updateForm() {
+      const userType = document.getElementById('user_type').value;
+      const studentNumberInput = document.getElementById('student_number');
+      const levelContainer = document.getElementById('level-container');
+      const levelSelect = document.getElementById('level');
+      const departmentSelect = document.getElementById('department');
+
+      if (userType === 'employee') {
+        studentNumberInput.placeholder = "Username";
+        levelContainer.style.display = 'none'; // Hide level
+        levelSelect.required = false; // Remove required attribute
+        // Hide specific department options
+        Array.from(departmentSelect.options).forEach(option => {
+          if (['BSN', 'BSCS', 'BSA', 'BSBA', 'BSP', 'BSRT', 'BSHM', 'BEEd', 'BSEd-Filipino', 'BSEd-English'].includes(option.value)) {
+            option.style.display = 'none';
+          } else {
+            option.style.display = 'block'; // Show other options
+          }
+        });
+      } else {
+        studentNumberInput.placeholder = "Student Number";
+        levelContainer.style.display = 'block'; // Show level
+        levelSelect.required = true; // Make required
+        // Show all department options except College and Accounting if student
+        if (userType === 'student') {
+          Array.from(departmentSelect.options).forEach(option => {
+            if (['College', 'Accounting'].includes(option.value)) {
+              option.style.display = 'none'; // Hide
+            } else {
+              option.style.display = 'block'; // Show others
+            }
+          });
+        } else {
+          // For other user types (e.g., admin), show all department options
+          Array.from(departmentSelect.options).forEach(option => {
+            option.style.display = 'block';
+          });
+        }
+      }
+    }
+
+    function updateDepartment() {
+      const department = document.getElementById('department').value;
+      const levelSelect = document.getElementById('level');
+
+      // Reset level options
+      Array.from(levelSelect.options).forEach(option => {
+        option.style.display = 'block'; // Show all initially
+      });
+
+      if (department === 'BED') {
+        // Hide year options for BED
+        Array.from(levelSelect.options).forEach(option => {
+          if (['first_year', 'second_year', 'third_year', 'fourth_year'].includes(option.value)) {
+            option.style.display = 'none';
+          }
+        });
+      } else if (['BSN', 'BSCS', 'BSA', 'BSBA', 'BSP', 'BSRT', 'BSHM', 'BEEd', 'BSEd-Filipino', 'BSEd-English'].includes(department)) {
+        // Hide grade options for these departments
+        Array.from(levelSelect.options).forEach(option => {
+          if (['1', '2'].includes(option.value)) {
+            option.style.display = 'none';
+          }
+        });
+      }
+    }
+
+    // Initialize form on page load to handle pre-selected values if any
+    document.addEventListener('DOMContentLoaded', () => {
+      updateForm();
+      updateDepartment();
+    });
+  </script>
 {% endblock %}

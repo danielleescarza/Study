@@ -21,9 +21,13 @@ class CustomUser(AbstractUser):
         ("BEEd", "Bachelor of Science in Elementary Education"),
         ("BSEd-Filipino", "Bachelor of Science in Secondary Education Major in Filipino"),
         ("BSEd-English", "Bachelor of Science in Secondary Education Major in English"),
+        ("College", "College Department"),
+        ("Accounting", "Accounting Department"),
     )
     
     LEVEL_CHOICES = (
+        ("1", "Grade 1"),
+        ("2", "Grade 2"),
         ("first_year", "1st Year"),
         ("second_year", "2nd Year"),
         ("third_year", "3rd Year"),
@@ -34,7 +38,7 @@ class CustomUser(AbstractUser):
         max_length=10, choices=USER_TYPE_CHOICES, default="student"
     )
     uid = models.CharField(max_length=32, unique=True, null=True, blank=True)
-    student_number = models.PositiveBigIntegerField(null=True, blank=True)
+    student_number = models.CharField(max_length=32, null=True, blank=True)
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     department = models.CharField(max_length=100, choices=DEPARTMENT_CHOICES)

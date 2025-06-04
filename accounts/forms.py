@@ -11,8 +11,6 @@ class CustomUserCreationForm(UserCreationForm):
             "student_number",
             "first_name",
             "last_name",
-            "department",
-            "level",
             "password1",
             "password2",
         )
@@ -34,9 +32,6 @@ class CustomUserChangeForm(UserChangeForm):
             "uid",
             "student_number",
             "first_name",
-            "last_name",
-            "department",
-            "level",
         )
 
         def save(self, commit=True):
