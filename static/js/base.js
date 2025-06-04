@@ -46,3 +46,9 @@ dashboard.addEventListener("click", (e) => {
   }
 });
 
+// Create Form uwu
+
+    // Initialize the form on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      toggleFields();
+    });

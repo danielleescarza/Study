@@ -1,4 +1,5 @@
 {% extends 'app/base.html' %}
+{% load static %}
 
 {% block title %}
   Clinic Visit
@@ -10,23 +11,29 @@
       <div class="title">
         <a href="{% url 'clinicvisits' %}"><span class="text">Clinic Visit</span></a><i class="uil uil-angle-right-b"></i>
         <span class="text">Add a CLinic Visit</span>
-      </div>  
+      </div>
+      <div class="table_box">
         <div class="table_container">
           <div class="create_body">
             <div class="create">
               <form method="POST">
                 {% csrf_token %}
-                <input list="patients" name="user" id="user" class="form-control" required placeholder="Select a patient" />
-                <datalist id="patients">
-                  {% for user in users %}
-                    <option value="{{ user.first_name }} {{ user.last_name }}">
-                      {{ user.first_name }} {{ user.last_name }}
-                      {% if user.department %}
-                        ({{ user.department }})
-                      {% endif %}
-                    </option>
-                  {% endfor %}
-                </datalist>
+                {{form.as_p}}
+                {% comment %} <div class="input-box">
+                  <div id="student_number_container">
+                    <input list="student_numbers" class="input-field" type="number" id="student_number" name="student_number" placeholder="Student Number" min="1" />
+                    <datalist id="student_numbers">
+                      {% for user in users %}
+                        {% if user.student_number %}
+                          <option value="{{ user.student_number }}">{{ user.first_name }} {{ user.last_name }}</option>
+                        {% endif %}
+                      {% endfor %}
+                    </datalist>
+                  </div>
+                </div> {% endcomment %}
+                <div class="input-submit">
+                  <button class="submit-btn" type="submit"><label>Add Clinic Visit</label></button>
+                </div>
               </form>
             </div>
           </div>

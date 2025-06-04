@@ -32,22 +32,32 @@
                 <th>Remarks</th>
               </tr>
               {% for clinicvisit in clinicvisits %}
-                <a href="{% url 'clinicvisits_detail' clinicvisit.pk %}">
-                  <tr class="data clickable-row" data-href="{% url 'clinicvisits_detail' clinicvisit.pk %}">
-                    {% comment %} <td>
-                      <a href="{% url 'clinicvisit_update' clinicvisit.pk %}" class="edit">UPDATE</a>&nbsp;&nbsp;
-                      <a href="{% url 'clinicvisit_delete' clinicvisit.pk %}" class="edit">DELETE</a>
-                    </td> {% endcomment %}
-                    <td>{{ clinicvisit.date }}</td>
-                    <td>{{ clinicvisit.time_in }}</td>
-                    <td>{{ clinicvisit.user.first_name }} {{ clinicvisit.user.last_name }}</td>
-                    <td>{{ clinicvisit.user.department }}</td>
-                    <td>{{ clinicvisit.user.level }}</td>
-                    <td>{{ clinicvisit.complaints }}</td>
-                    <td>{{ clinicvisit.medical_intervention }}</td>
-                    <td>{{ clinicvisit.remarks }}</td>
-                  </tr>
-                </a>
+                <tr class="data clickable-row" data-href="{% url 'clinicvisits_detail' clinicvisit.pk %}">
+                  {% comment %} <td>
+                    <a href="{% url 'clinicvisit_update' clinicvisit.pk %}" class="edit">UPDATE</a>&nbsp;&nbsp;
+                    <a href="{% url 'clinicvisit_delete' clinicvisit.pk %}" class="edit">DELETE</a>
+                  </td> {% endcomment %}
+                  <td>{{ clinicvisit.date }}</td>
+                  <td>{{ clinicvisit.time_in }}</td>
+                  <td>{{ clinicvisit.user.first_name }} {{ clinicvisit.user.last_name }}</td>
+                  <td>{{ clinicvisit.user.department }}</td>
+                  <td>
+                    {% if clinicvisit.user.level == 'first_year' %}
+                      1st Year
+                    {% elif clinicvisit.user.level == 'second_year' %}
+                      2nd Year
+                    {% elif clinicvisit.user.level == 'third_year' %}
+                      3rd Year
+                    {% elif clinicvisit.user.level == 'fourth_year' %}
+                      4th Year
+                    {% else %}
+                      {{ clinicvisit.user.level }} {# Fallback to original value if not matched #}
+                    {% endif %}
+                  </td>
+                  <td>{{ clinicvisit.complaints }}</td>
+                  <td>{{ clinicvisit.medical_intervention }}</td>
+                  <td>{{ clinicvisit.remarks }}</td>
+                </tr>
               {% empty %}
                 <tr>
                   <td colspan="8" class="no-records">No clinic visits found</td>

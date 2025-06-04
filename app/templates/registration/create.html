@@ -15,37 +15,61 @@
           <div class="create_body">
             <div class="create">
               <form method="POST">
+                <!-- Adjust the action URL as needed -->
                 {% csrf_token %}
-                <div class="select">
+                <div class="input-box">
                   <select id="user_type" name="user_type" required>
+                    <option value="" disabled selected>User Type</option>
                     <option value="student">Student</option>
                     <option value="employee">Employee</option>
                     <option value="admin">Admin</option>
                   </select>
                 </div>
-                <div class="input-box">
-                  <input type="text" class="input-field" placeholder="Username" name="username" required />
+                <div class="input-group">
+                  <div class="input-box">
+                    <input type="text" class="input-field" id="uid" name="uid" placeholder="Enter UID" />
+                  </div>
+                  <div class="input-box">
+                    <input type="number" class="input-field" id="student_number" name="student_number" placeholder="Enter Student Number" min="1" required />
+                  </div>
+                </div>
+                <div class="input-group">
+                  <div class="input-box">
+                    <input type="text" class="input-field" id="first_name" name="first_name" placeholder="Enter First Name" required />
+                  </div>
+                  <div class="input-box">
+                    <input type="text" class="input-field" id="last_name" name="last_name" placeholder="Enter Last Name" required />
+                  </div>
                 </div>
                 <div class="input-box">
-                  <input type="text" class="input-field" placeholder="First Name" name="first_name" required />
+                  <select id="department" name="department" required>
+                    <option value="BED">Basic Education Department</option>
+                    <option value="BSN">Bachelor of Science in Nursing</option>
+                    <option value="BSCS">Bachelor of Science in Computer Science</option>
+                    <option value="BSA">Bachelor of Science in Accountancy</option>
+                    <option value="BSBA">Bachelor of Science in Business Administration Major in Operational Management</option>
+                    <option value="BSP">Bachelor of Science in Psychology</option>
+                    <option value="BSRT">Bachelor of Science in Radiologic Technology</option>
+                    <option value="BSHM">Bachelor of Science in Hospitality Management</option>
+                    <option value="BEEd">Bachelor of Science in Elementary Education</option>
+                    <option value="BSEd-Filipino">Bachelor of Science in Secondary Education Major in Filipino</option>
+                    <option value="BSEd-English">Bachelor of Science in Secondary Education Major in English</option>
+                  </select>
+                </div>
+                <select id="level" name="level" required>
+                  <option value="first_year">1st Year</option>
+                  <option value="second_year">2nd Year</option>
+                  <option value="third_year">3rd Year</option>
+                  <option value="fourth_year">4th Year</option>
+                </select>
+                <div class="input-box">
+                  <input type="password" class="input-field" id="password1" name="password1" placeholder="Enter Password" required />
                 </div>
                 <div class="input-box">
-                  <input type="text" class="input-field" placeholder="Last Name" name="last_name" required />
-                </div>
-                <div class="input-box">
-                  <input type="text" class="input-field" placeholder="Department" name="department" required />
-                </div>
-                <div class="input-box">
-                  <input type="text" class="input-field" placeholder="Level" name="level" required />
-                </div>
-                <div class="input-box">
-                  <input type="password" class="input-field" placeholder="Password" name="password1" required />
-                </div>
-                <div class="input-box">
-                  <input type="password" class="input-field" placeholder="Confirm Password" name="password2" required />
+                  <input type="password" class="input-field" id="password2" name="password2" placeholder="Confirm Password" required />
                 </div>
                 <div class="input-submit">
-                  <button class="submit-btn" type="submit"><label>Create</label></button>
+                  <button class="submit-btn" type="submit"><label>Create Account</label></button>
                 </div>
               </form>
             </div>
