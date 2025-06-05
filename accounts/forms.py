@@ -17,7 +17,7 @@ class CustomUserCreationForm(UserCreationForm):
 
         def save(self, commit=True):
             user = super().save(commit=False)
-            # Set the username to the student_number
+
             user.username = str(self.cleaned_data["student_number"])
             if commit:
                 user.save()
