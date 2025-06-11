@@ -1,0 +1,35 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block title %}
+  Clinic Visit
+{% endblock %}
+
+{% block content %}
+  <div class="dash-content">
+    <div class="overview">
+      <div class="title">
+        <a href="{% url 'clinicvisits' %}"><span class="text">Clinic Visit</span></a><i class="uil uil-angle-right-b"></i>
+        <span class="text">Delete</span>
+      </div>
+      <div class="table_box">
+        <div class="table_container">
+          <div class="create_body">
+            <div class="create">
+              <form method="POST" action="{% url 'clinicvisits_delete' object.pk %}">
+                {% csrf_token %}
+                <h3>Are you sure you want to delete {{ clinicvisit.user.first_name }} {{ clinicvisit.user.last_name }}'s clinic visit on {{ clinicvisit.date }}?</h3>
+                <div class="input-submit">
+                  <button class="submit-btn" type="submit" value="Confirm"><label>Confirm</label></button>
+                </div>
+                <div class="cancel">
+                  <a href="{% url 'clinicvisits_update' clinicvisit.pk %}">Cancel</a>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

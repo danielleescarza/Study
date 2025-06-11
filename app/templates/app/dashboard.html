@@ -14,18 +14,18 @@
         <div class="boxes">
           <div class="box box1">
             <i class="uil uil-clinic-medical"></i>
-            <span class="text">Clinic Visits Today</span>
-            <span class="number">20</span>
+            <span class="text">Clinic Visits Today: {{ current_date }}</span>
+            <span class="number">{{ visit_count }}</span>
           </div>
           <div class="box box2">
             <i class="uis uil-capsule"></i>
             <span class="text">Near-expiry Medicines</span>
-            <span class="number">10</span>
+            <span class="number">{{ near_expiration_count }}</span>
           </div>
           <div class="box box2">
             <i class="uil uil-users-alt"></i>
-            <span class="text">Accounts</span>
-            <span class="number">100</span>
+            <span class="text">Active Accounts</span>
+            <span class="number">{{ total_users }}</span>
           </div>
         </div>
       </div>

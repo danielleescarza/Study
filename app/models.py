@@ -8,14 +8,13 @@ def current_time():
     return datetime.datetime.now().time()
 
 
-# Clinic Visit Model
 class ClinicVisit(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     date = models.DateField(default=datetime.date.today)
     time_in = models.TimeField(default=current_time)
-    complaints = models.TextField(blank=True)
-    medical_intervention = models.TextField(blank=True, null=True)
-    remarks = models.TextField(blank=True, null=True)
+    complaint = models.TextField(max_length=30, blank=True, default="")
+    medical_intervention = models.TextField(max_length=30, blank=True, default="")
+    remarks = models.TextField(max_length=30, blank=True, default="")
 
     def __str__(self):
         return f"{self.date} {self.user.first_name} {self.user.last_name}"
@@ -31,20 +30,20 @@ class MedicalRecord(models.Model):
         return f"{self.first_name} - {self.last_name}"
 
 
-# Base abstract model for items with description, quantity, expiration_date, and remarks
 class Inventory(models.Model):
-    STATUS_CHOICES = [
+    INVENTORY_TYPE_CHOICES = [
         ('consumable_medicine', 'Consumable Medicine'),
         ('medical_supply', 'Medical Supply'),
         ('medical_instrument', 'Medical Instrument')
     ]
 
-    status = models.CharField(max_length=50, choices=STATUS_CHOICES, default='consumable_medicine')
+    inventory_type = models.CharField(max_length=50, choices=INVENTORY_TYPE_CHOICES, default='consumable_medicine')
     description = models.CharField(max_length=255)
-    quantity = models.IntegerField(default=1)
+    quantity = models.PositiveIntegerField(default=1)
+    unit = models.CharField(max_length=255, default="")
     arrival_date = models.DateField(default=datetime.date.today)
     expiration_date = models.DateField(blank=True, null=True)
     remarks = models.TextField(blank=True, null=True)
 
     def __str__(self):
-        return f"{self.status} - {self.description} - {self.quantity}"
+        return f"{self.inventory_type} - {self.description} - {self.quantity}"

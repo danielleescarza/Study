@@ -14,7 +14,7 @@ class CustomUser(AbstractUser):
         ("BSN", "Bachelor of Science in Nursing"),
         ("BSCS", "Bachelor of Science in Computer Science"),
         ("BSA", "Bachelor of Science in Accountancy"),
-        ("BSBA","Bachelor of Science in Business Administration Major in Operational Management"),
+        ("BSBA", "Bachelor of Science in Business Administration Major in Operational Management"),
         ("BSP", "Bachelor of Science in Psychology"),
         ("BSRT", "Bachelor of Science in Radiologic Technology"),
         ("BSHM", "Bachelor of Science in Hospitality Management"),
@@ -31,10 +31,10 @@ class CustomUser(AbstractUser):
         ("Guidance", "Guidance Department"),
         ("Marketing", "Marketing Department"),
         ("Procurement", "Procurement Department"),
-        ("Housekeeping", "Housekeeping Department"), 
+        ("Housekeeping", "Housekeeping Department"),
         ("Security", "Security Department"),
     )
-    
+
     LEVEL_CHOICES = (
         ("1", "Grade 1"),
         ("2", "Grade 2"),
@@ -51,7 +51,7 @@ class CustomUser(AbstractUser):
         ("first_year", "1st Year"),
         ("second_year", "2nd Year"),
         ("third_year", "3rd Year"),
-        ("fourth_year","4th Year"),
+        ("fourth_year", "4th Year"),
     )
 
     user_type = models.CharField(
@@ -61,9 +61,8 @@ class CustomUser(AbstractUser):
     student_number = models.CharField(max_length=32, null=True, blank=True)
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
-    department = models.CharField(max_length=100, choices=DEPARTMENT_CHOICES)
-    level = models.CharField(max_length=100, choices=LEVEL_CHOICES)
+    department = models.CharField(max_length=100, choices=DEPARTMENT_CHOICES, blank=True)
+    level = models.CharField(max_length=100, choices=LEVEL_CHOICES, blank=True)
 
     def __str__(self):
         return f"{self.first_name} {self.last_name} ({self.student_number})"
-
