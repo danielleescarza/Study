@@ -14,12 +14,18 @@ class CustomUser(AbstractUser):
         ("BSN", "Bachelor of Science in Nursing"),
         ("BSCS", "Bachelor of Science in Computer Science"),
         ("BSA", "Bachelor of Science in Accountancy"),
-        ("BSBA", "Bachelor of Science in Business Administration Major in Operational Management"),
+        (
+            "BSBA",
+            "Bachelor of Science in Business Administration Major in Operational Management",
+        ),
         ("BSP", "Bachelor of Science in Psychology"),
         ("BSRT", "Bachelor of Science in Radiologic Technology"),
         ("BSHM", "Bachelor of Science in Hospitality Management"),
         ("BEEd", "Bachelor of Science in Elementary Education"),
-        ("BSEd-Filipino", "Bachelor of Science in Secondary Education Major in Filipino"),
+        (
+            "BSEd-Filipino",
+            "Bachelor of Science in Secondary Education Major in Filipino",
+        ),
         ("BSEd-English", "Bachelor of Science in Secondary Education Major in English"),
         ("College", "College Department"),
         ("Accounting", "Accounting Department"),
@@ -61,7 +67,9 @@ class CustomUser(AbstractUser):
     student_number = models.CharField(max_length=32, null=True, blank=True)
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
-    department = models.CharField(max_length=100, choices=DEPARTMENT_CHOICES, blank=True)
+    department = models.CharField(
+        max_length=100, choices=DEPARTMENT_CHOICES, blank=True
+    )
     level = models.CharField(max_length=100, choices=LEVEL_CHOICES, blank=True)
 
     def __str__(self):
