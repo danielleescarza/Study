@@ -1,0 +1,91 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block title %}
+  Clinic Visit
+{% endblock %}
+
+{% block content %}
+  <div class="dash-content">
+    <div class="overview">
+      <div class="title">
+        <a href="{% url 'clinicvisits' %}"><span class="text">Clinic Visit</span></a><i class="uil uil-angle-right-b"></i>
+        <span class="text">Add a Clinic Visit</span>
+      </div>
+      <div class="table_box">
+        <div class="table_container">
+          <div class="create_body">
+            <div class="create">
+              <div class="title">
+                <span class="form-title">Add a Clinic Visit</span>
+              </div>
+              <form method="POST" action="{% url 'clinicvisits_create' %}">
+                {% csrf_token %}
+                <div class="input-box">
+                  <label for="user_name">Patient</label>
+                  <input list="user-options" id="user_name" name="user_name" class="input-field" placeholder="Select patient" autocomplete="off" required />
+                  <datalist id="user-options">
+                    {% for user in users %}
+                      <option data-userid="{{ user.id }}" value="{{ user.first_name }} {{ user.last_name }}">{{ user.student_number }}</option>
+                    {% empty %}
+                      <option value="No users available"></option>
+                    {% endfor %}
+                  </datalist>
+                  <input type="hidden" id="user" name="user" required />
+                </div>
+                <div class="input-box">
+                  <label for="date">Date</label>
+                  <input type="date" class="input-field" value="{{ form.date.value|date:'Y-m-d' }}" id="date" name="date" placeholder="Date" required />
+                </div>
+                <div class="input-box">
+                  <label for="time_in">Time-in</label>
+                  <input type="time" class="input-field" value="{{ form.time_in.value|time:'H:i' }}" id="time_in" name="time_in" placeholder="Time" required />
+                </div>
+                <div class="input-box">
+                  <label for="complaint">Complaint</label>
+                  <input type="text" class="input-field" id="complaint" name="complaint" placeholder="Complaint" required />
+                </div>
+                <div class="input-box">
+                  <label for="medical_intervention">Medical Intervention</label>
+                  <input type="text" class="input-field" id="medical_intervention" name="medical_intervention" placeholder="Medical Intervention" required />
+                </div>
+                <div class="input-box">
+                  <label for="remarks">Remarks</label>
+                  <input type="text" class="input-field" id="remarks" name="remarks" placeholder="Remarks" />
+                </div>
+                <div class="input-submit">
+                  <button class="submit-btn" type="submit"><label>Add Clinic Visit</label></button>
+                </div>
+                {{ form.errors }}
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const userNameInput = document.getElementById('user_name')
+      const userIdInput = document.getElementById('user')
+      const dataList = document.getElementById('user-options')
+    
+      userNameInput.addEventListener('input', function () {
+        const value = userNameInput.value
+        let userId = ''
+    
+        // Loop through the datalist options to find a match
+        for (let option of dataList.options) {
+          if (option.value === value) {
+            userId = option.getAttribute('data-userid')
+            break
+          }
+        }
+    
+        // Set the hidden input value to the user ID or reset if no match
+        userIdInput.value = userId || ''
+      })
+    })
+  </script>
+{% endblock %}

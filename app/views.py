@@ -120,6 +120,122 @@ class ClinicVisitDeleteView(DeleteView):
     success_url = reverse_lazy("clinicvisits")
 
 
+class MedicalRecordListView(ListView):
+    model = MedicalRecord
+    context_object_name = "medicalrecords"
+    template_name = "app/medicalrecord_list.html"
+    ordering = ["-date_recorded"]
+    
+class MedicalRecordDetailView(DetailView):
+    model = MedicalRecord
+    context_object_name = "medicalrecord"
+    template_name = "app/medicalrecord_detail.html"
+
+class MedicalRecordCreateView(CreateView):
+    model = MedicalRecord
+    fields = [
+        "birth_date",
+        "age",
+        "sex",
+        "residence",
+        "fathers_name",
+        "fathers_home_address",
+        "fathers_contact_number",
+        "mothers_name",
+        "mothers_home_address",
+        "mothers_contact_number",
+        "primarycontact_name",
+        "primarycontact_number",
+        "medication_allergies",
+        "food_allergies",
+        "other_allergies",
+        "severeallergic_reaction",
+        "asthma_history",
+        "carries_inhaler",
+        "diabetes_age",
+        "meningitis_age",
+        "tuberculosis_age",
+        "pneumonia_age",
+        "heart_disorder_age",
+        "urinary_disorder_age",
+        "epilepsy_age",
+        "scoliosis_age",
+        "psoriasis_age",
+        "vitiligo_age",
+        "atopic_dermatitis_age",
+        "impetigo_age",
+        "other_conditions",
+        "hospitalization_details",
+        "wears_eyeglasses_or_contacts",
+        "eye_vision_problem",
+        "eye_vision_description",
+        "hearing_problems",
+        "hearing_description",
+    ]
+    template_name = "app/medicalrecord_create.html"
+    success_url = reverse_lazy("medicalrecords")
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["users"] = CustomUser.objects.all()
+        return context
+    
+class MedicalRecordUpdateView(UpdateView):
+    model = MedicalRecord
+    fields = [
+        "birth_date",
+        "age",
+        "sex",
+        "residence",
+        "fathers_name",
+        "fathers_home_address",
+        "fathers_contact_number",
+        "mothers_name",
+        "mothers_home_address",
+        "mothers_contact_number",
+        "primarycontact_name",
+        "primarycontact_number",
+        "medication_allergies",
+        "food_allergies",
+        "other_allergies",
+        "severeallergic_reaction",
+        "asthma_history",
+        "carries_inhaler",
+        "diabetes_age",
+        "meningitis_age",
+        "tuberculosis_age",
+        "pneumonia_age",
+        "heart_disorder_age",
+        "urinary_disorder_age",
+        "epilepsy_age",
+        "scoliosis_age",
+        "psoriasis_age",
+        "vitiligo_age",
+        "atopic_dermatitis_age",
+        "impetigo_age",
+        "other_conditions",
+        "hospitalization_details",
+        "wears_eyeglasses_or_contacts",
+        "eye_vision_problem",
+        "eye_vision_description",
+        "hearing_problems",
+        "hearing_description",
+    ]
+    template_name = "app/medicalrecord_update.html"
+    success_url = reverse_lazy("medicalrecords")
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["users"] = CustomUser.objects.all()
+        return context
+
+
+class MedicalRecordDeleteView(DeleteView):
+    model = MedicalRecord
+    template_name = "app/medicalrecord_delete.html"
+    success_url = reverse_lazy("medicalrecords")
+    
+
 class InventoryListView(ListView):
     model = Inventory
     context_object_name = "inventorys"
@@ -165,9 +281,7 @@ class InventoryUpdateView(UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["inventory"] = (
-            self.object
-        )
+        context["inventory"] = self.object
         return context
 
 

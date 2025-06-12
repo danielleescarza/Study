@@ -4,8 +4,8 @@ from django.contrib.auth import views as auth_views
 from . import views
 from .views import DashboardPageView, ClinicVisitListView, ClinicVisitDetailView, ClinicVisitCreateView, \
     ClinicVisitUpdateView, ClinicVisitDeleteView, InventoryListView, InventoryDetailView, InventoryCreateView, \
-    InventoryUpdateView, InventoryDeleteView, MedicalRecordListView
-
+    InventoryUpdateView, InventoryDeleteView, MedicalRecordListView, MedicalRecordDetailView, MedicalRecordCreateView, \
+    MedicalRecordUpdateView, MedicalRecordDeleteView
 urlpatterns = [
     path('', DashboardPageView.as_view(), name='dashboard'),
     path('login/', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),
@@ -20,4 +20,8 @@ urlpatterns = [
     path('inventory/<int:pk>/update/', InventoryUpdateView.as_view(), name='inventory_update'),
     path('inventory/<int:pk>/delete/', InventoryDeleteView.as_view(), name='inventory_delete'),
     path('medicalrecords/', MedicalRecordListView.as_view(), name='medicalrecords'),
+    path('medicalrecords/<int:pk>/', MedicalRecordDetailView.as_view(), name='medicalrecords_detail'),
+    path('medicalrecords/create', MedicalRecordCreateView.as_view(), name='medicalrecords_create'),
+    path('medicalrecords/<int:pk>/update/', MedicalRecordUpdateView.as_view(), name='medicalrecords_update'),
+    path('medicalrecords/<int:pk>/delete/', MedicalRecordDeleteView.as_view(), name='medicalrecords_delete'),
 ]
