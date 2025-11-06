@@ -10,63 +10,116 @@
       <div class="overview">
         <div class="title">
           <a href="{% url 'clinicvisits' %}"><span class="text">Clinic Visit</span></a>
+          <form method="GET" action="{% url 'clinicvisits' %}" class="search-bar">
+            <input type="text" name="search_query" value="{{ search_query }}" placeholder="Search" />
+            <button type="submit" value="Search">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24">
+                <circle cx="11" cy="11" r="8" />
+                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+              </svg>
+            </button>
+          </form>
         </div>
-        <div class="clinicvisit-btn">
-          <a href="{% url 'clinicvisits_create' %}" class="signup">
-            ADD A CLINIC VISIT<div class="arrow-wrapper">
-              <div class="arrow"></div>
-            </div>
-          </a>
-        </div>
-        <div class="table_box">
-          <div class="table_container">
-            <table>
-              <tr>
-                <th>Date</th>
-                <th>Time-in</th>
-                <th>Name</th>
-                <th>Department</th>
-                <th>Level</th>
-                <th>Complaints</th>
-                <th>Medical Intervention</th>
-                <th>Remarks</th>
-              </tr>
-              {% for clinicvisit in clinicvisits %}
-                <tr class="data clickable-row" data-href="{% url 'clinicvisits_detail' clinicvisit.pk %}">
-                  {% comment %} <td>
-                    <a href="{% url 'clinicvisit_update' clinicvisit.pk %}" class="edit">UPDATE</a>&nbsp;&nbsp;
-                    <a href="{% url 'clinicvisit_delete' clinicvisit.pk %}" class="edit">DELETE</a>
-                  </td> {% endcomment %}
-                  <td>{{ clinicvisit.date }}</td>
-                  <td>{{ clinicvisit.time_in }}</td>
-                  <td>{{ clinicvisit.user.first_name }} {{ clinicvisit.user.last_name }}</td>
-                  <td>{{ clinicvisit.user.department }}</td>
-                  <td>
-                    {% if clinicvisit.user.level == 'first_year' %}
-                      1st Year
-                    {% elif clinicvisit.user.level == 'second_year' %}
-                      2nd Year
-                    {% elif clinicvisit.user.level == 'third_year' %}
-                      3rd Year
-                    {% elif clinicvisit.user.level == 'fourth_year' %}
-                      4th Year
-                    {% else %}
-                      {{ clinicvisit.user.level }} {# Fallback to original value if not matched #}
-                    {% endif %}
-                  </td>
-                  <td>{{ clinicvisit.complaints }}</td>
-                  <td>{{ clinicvisit.medical_intervention }}</td>
-                  <td>{{ clinicvisit.remarks }}</td>
-                </tr>
-              {% empty %}
-                <tr>
-                  <td colspan="8" class="no-records">No clinic visits found</td>
-                </tr>
-              {% endfor %}
-            </table>
+      </div>
+      <div class="clinicvisit-btn">
+        <a href="{% url 'clinicvisits_create' %}" class="signup">
+          ADD A CLINIC VISIT<div class="arrow-wrapper">
+            <div class="arrow"></div>
           </div>
+        </a>
+      </div>
+      <div class="table_box">
+        <div class="table_container">
+          <table>
+            <tr>
+              <th>Date</th>
+              <th>Time-in</th>
+              <th>Name</th>
+              <th>Department</th>
+              <th>Level</th>
+              <th>Complaint</th>
+              <th>Medical Intervention</th>
+              <th>Remarks</th>
+            </tr>
+            {% for clinicvisit in clinicvisits %}
+              <tr class="data clickable-row" data-href="{% url 'clinicvisits_update' clinicvisit.pk %}">
+                <td>{{ clinicvisit.date }}</td>
+                <td>{{ clinicvisit.time_in }}</td>
+                <td>{{ clinicvisit.user.first_name }} {{ clinicvisit.user.last_name }}</td>
+                <td>{{ clinicvisit.user.department }}</td>
+                <td>
+                  {% if clinicvisit.user.level == 'first_year' %}
+                    1st Year
+                  {% elif clinicvisit.user.level == 'second_year' %}
+                    2nd Year
+                  {% elif clinicvisit.user.level == 'third_year' %}
+                    3rd Year
+                  {% elif clinicvisit.user.level == 'fourth_year' %}
+                    4th Year
+                  {% elif clinicvisit.user.user_type == 'employee' %}
+                    Employee
+                  {% else %}
+                    {{ clinicvisit.user.level }} {# Fallback to original value if not matched #}
+                  {% endif %}
+                </td>
+                <td>{{ clinicvisit.complaint }}</td>
+                <td>{{ clinicvisit.medical_intervention }}</td>
+                <td>{{ clinicvisit.remarks }}</td>
+              </tr>
+            {% empty %}
+              <tr>
+                <td colspan="8" class="no-records">No clinic visits found</td>
+              </tr>
+            {% endfor %}
+          </table>
         </div>
       </div>
     </div>
+    <style>
+      .search-bar {
+        position: absolute;
+        right: 20px;
+        display: flex;
+        align-items: center;
+        background-color: #ffffff;
+        border: 1px solid #ccc;
+        border-radius: 999px;
+        overflow: hidden;
+        width: 300px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      }
+      
+      .search-bar input {
+        flex: 1;
+        padding: 0 23px;
+        background-color: transparent;
+        border: none;
+        color: #333;
+        font-size: 15px;
+        outline: none;
+      }
+      
+      .search-bar input::placeholder {
+        color: #888;
+      }
+      
+      .search-bar button {
+        padding: 10px 16px;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      
+      .search-bar button svg {
+        stroke: #555;
+      }
+      
+      .search-bar button:hover svg {
+        stroke: #000;
+      }
+    </style>
   {% endif %}
 {% endblock %}

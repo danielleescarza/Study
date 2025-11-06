@@ -5,11 +5,44 @@
 {% endblock %}
 
 {% block content %}
-  <div class="dash-content">
-    <div class="overview">
-      <div class="title">
-        <span class="text">Medical Record</span>
+  {% if user.is_authenticated %}
+    <div class="dash-content">
+      <div class="overview">
+        <div class="title">
+          <a href="{% url 'medicalrecords' %}"><span class="text">Medical Record</span></a>
+        </div>
+        <div class="clinicvisit-btn">
+          <a href="{% url 'medicalrecords_create' %}" class="signup">
+            ADD A MEDICAL RECORD<div class="arrow-wrapper">
+              <div class="arrow"></div>
+            </div>
+          </a>
+        </div>
+        <div class="table_box">
+          <div class="table_container">
+            <table>
+              <tr>
+                <th>Date Recorded</th>
+                <th>Student Number</th>
+                <th>Name</th>
+                <th>Department</th>
+                <th>Level</th>
+              </tr>
+              {% for medicalrecord in medicalrecords %}
+                <tr class="data clickable-row" data-href="{% url 'medicalrecords_update' medicalrecord.pk %}">
+                  <td>{{ medicalrecord.date_recorded }}</td>
+                  <td>{{ medicalrecord.user.student_number }}</td>
+                  <td>{{ medicalrecord.user.first_name }} {{ medicalrecord.user.last_name }}</td>
+                </tr>
+              {% empty %}
+                <tr>
+                  <td colspan="5" class="no-records">No items found</td>
+                </tr>
+              {% endfor %}
+            </table>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
+  {% endif %}
 {% endblock %}

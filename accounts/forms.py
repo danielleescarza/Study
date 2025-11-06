@@ -11,13 +11,15 @@ class CustomUserCreationForm(UserCreationForm):
             "student_number",
             "first_name",
             "last_name",
+            "department",
+            "level",
             "password1",
             "password2",
         )
 
         def save(self, commit=True):
             user = super().save(commit=False)
-            # Set the username to the student_number
+
             user.username = str(self.cleaned_data["student_number"])
             if commit:
                 user.save()
@@ -32,6 +34,9 @@ class CustomUserChangeForm(UserChangeForm):
             "uid",
             "student_number",
             "first_name",
+            "last_name",
+            "department",
+            "level",
         )
 
         def save(self, commit=True):

@@ -1,0 +1,76 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block title %}
+  Inventory
+{% endblock %}
+
+{% block content %}
+  <div class="dash-content">
+    <div class="overview">
+      <div class="title">
+        <a href="{% url 'inventory' %}"><span class="text">Inventory</span></a><i class="uil uil-angle-right-b"></i>
+        <span class="text">Update</span>
+      </div>
+      <div class="table_box">
+        <div class="back">
+          <a href="{% url 'inventory' %}">Back <i class="uil uil-angle-right-b"></i></a>
+        </div>
+        <div class="table_container">
+          <div class="create_body">
+            <div class="create">
+              <form method="POST" action="{% url 'inventory_update' object.pk %}">
+                {% csrf_token %}
+                <div class="input-box">
+                  <label for="inventory_type">Inventory Type</label>
+                  <select id="inventory_type" name="inventory_type" required>
+                    <option value="" disabled>Select inventory type</option>
+                    <option value="consumable_medicine" {% if inventory.inventory_type == 'consumable_medicine' %} selected {% endif %}>Consumable Medicine</option>
+                    <option value="medical_supply" {% if inventory.inventory_type == 'medical_supply' %} selected {% endif %}>Medical Supply</option>
+                    <option value="medical_instrument" {% if inventory.inventory_type == 'medical_instrument' %} selected {% endif %}>Medical Instrument</option>
+                  </select>
+                </div>
+                <div class="input-box">
+                  <label for="description">Description</label>
+                  <input type="text" class="input-field" id="description" name="description" placeholder="Description" value="{{ inventory.description }}" required />
+                </div>
+                <div class="input-box">
+                  <label for="quantity">Quantity</label>
+                  <input type="number" class="input-field" id="quantity" name="quantity" placeholder="Quantity" value="{{ inventory.quantity }}" required />
+                </div>
+                <div class="input-box">
+                  <label for="unit">Unit</label>
+                  <input type="text" class="input-field" id="unit" name="unit" placeholder="Unit" value="{{ inventory.unit }}" required />
+                </div>
+                <div class="input-box">
+                  <label for="arrival_date">Date</label>
+                  <input type="date" class="input-field" value="{{ inventory.arrival_date|date:'Y-m-d' }}" id="arrival_date" name="arrival_date" placeholder="Date" required />
+                </div>
+                <div class="input-box">
+                  <label for="expiration_date">Expiration Date</label>
+                  <input type="date" class="input-field" id="expiration_date" name="expiration_date" value="{{ inventory.expiration_date|date:'Y-m-d' }}" placeholder="Expiration Date" />
+                </div>
+                <div class="input-box">
+                  <label for="remarks">Remarks</label>
+                  <input type="text" class="input-field" id="remarks" name="remarks" value="{{ inventory.remarks }}" placeholder="Remarks" />
+                </div>
+                <div class="input-group">
+                  <div class="input-submit">
+                    <button class="submit-btn" type="submit"><label>Save changes</label></button>
+                  </div>
+                  <div class="delete-btn">
+                    <a href="{% url 'inventory_delete' inventory.pk %}" class="delete">
+                      Delete<div class="arrow-wrapper">
+                        <div class="arrow"></div>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

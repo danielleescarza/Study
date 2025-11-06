@@ -5,11 +5,60 @@
 {% endblock %}
 
 {% block content %}
-  <div class="dash-content">
-    <div class="overview">
-      <div class="title">
-        <span class="text">Inventory</span>
+  {% if user.is_authenticated %}
+    <div class="dash-content">
+      <div class="overview">
+        <div class="title">
+          <a href="{% url 'inventory' %}"><span class="text">Inventory</span></a>
+        </div>
+        <div class="clinicvisit-btn">
+          <a href="{% url 'inventory_create' %}" class="signup">
+            ADD AN ITEM<div class="arrow-wrapper">
+              <div class="arrow"></div>
+            </div>
+          </a>
+        </div>
+        <div class="table_box">
+          <div class="table_container">
+            <table>
+              <tr>
+                <th>Inventory Type</th>
+                <th>Description</th>
+                <th>Quantity</th>
+                <th>Unit</th>
+                <th>Arrival Date</th>
+                <th>Expiration Date</th>
+                <th>Remarks</th>
+              </tr>
+              {% for inventory in inventorys %}
+                <tr class="data clickable-row" data-href="{% url 'inventory_update' inventory.pk %}">
+                  <td>
+                    {% if inventory.inventory_type == 'consumable_medicine' %}
+                      Consumable Medicine
+                    {% elif inventory.inventory_type == 'medical_supply' %}
+                      Medical Supply
+                    {% elif inventory.inventory_type == 'medical_instrument' %}
+                      Medical Instrument
+                    {% else %}
+                      {{ inventory.inventory_type }} {# Fallback to original value if not matched #}
+                    {% endif %}
+                  </td>
+                  <td>{{ inventory.description }}</td>
+                  <td>{{ inventory.quantity }}</td>
+                  <td>{{ inventory.unit }}</td>
+                  <td>{{ inventory.arrival_date }}</td>
+                  <td>{{ inventory.expiration_date }}</td>
+                  <td>{{ inventory.remarks }}</td>
+                </tr>
+              {% empty %}
+                <tr>
+                  <td colspan="8" class="no-records">No items found</td>
+                </tr>
+              {% endfor %}
+            </table>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
+  {% endif %}
 {% endblock %}
