@@ -34,8 +34,8 @@ class MedicalRecord(models.Model):
     
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     date_recorded = models.DateField(default=datetime.date.today)
-    birth_date = models.DateField(blank=False, null=False)
-    age = models.PositiveBigIntegerField(null=False, blank=False)
+    birth_date = models.DateField(blank=False, null=True)
+    age = models.PositiveBigIntegerField(null=True, blank=False)
     sex = models.CharField(max_length=1, choices=SEX_CHOICES, default="M")
     residence = models.CharField(max_length=100, choices=RESIDENCE_CHOICES, default="both")
     # Father's Information

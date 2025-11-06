@@ -157,7 +157,6 @@ select:hover {
 }
 
 
-
 .submit-btn:hover {
     background: #000;
     font-weight: 500;
@@ -382,7 +381,7 @@ nav.close li .logout span.link-name {
     transition: var(--tran-05);
 }
 
-nav.close~.dashboard {
+nav.close ~ .dashboard {
     left: 73px;
     width: calc(100% - 73px);
 }
@@ -400,7 +399,7 @@ nav.close~.dashboard {
     transition: var(--tran-05);
 }
 
-nav.close~.dashboard .top {
+nav.close ~ .dashboard .top {
     left: 73px;
     width: calc(100% - 73px);
 }
@@ -458,8 +457,12 @@ nav.close~.dashboard .top {
     flex-direction: column;
     gap: 0;
     font-weight: 400;
-    width: 600px;
-    margin: 30px 0 30px;
+    width: 700px;
+    margin: 30px 0 60px;
+
+    & .form-title {
+        margin-bottom: 10px;
+    }
 }
 
 .dash-content .title a .text:hover {
@@ -581,7 +584,7 @@ nav.close~.dashboard .top {
 
 .signup:hover .arrow {
     color: var(--panel-color);
-    background: var(--[--panel-color]);
+    background: var(-- [--panel-color]);
     border: solid var(--panel-color);
     border-width: 0 var(--arrow-stroke) var(--arrow-stroke) 0;
 }
@@ -680,6 +683,34 @@ table tbody tr.data:hover {
     align-items: center;
 }
 
+legend {
+    color: var(--black-light-color);
+    font-weight: 500;
+    margin: 30px 0 20px;
+    padding: 0;
+}
+
+fieldset {
+    margin-top: 20px;
+    border: none;
+}
+
+.inline-fields.patient {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.inline-fields {
+    display: flex;
+    gap: 30px;
+}
+
+.inline-radio {
+    display: flex;
+    gap: 30px;
+}
+
 /* Creation Form */
 
 .input-box {
@@ -730,7 +761,7 @@ table tbody tr.data:hover {
     display: flex;
     flex-direction: column;
     color: #222;
-
+    gap: 10px 0;
     justify-content: center;
     width: 900px;
 }
@@ -752,6 +783,7 @@ table tbody tr.data:hover {
     & .input-box .input-field,
     select {
         justify-self: center;
+        align-content: center;
         width: 100%;
         height: 34px;
         font-size: 15px;
@@ -845,7 +877,7 @@ table tbody tr.data:hover {
 
 .delete:hover .arrow {
     color: var(--panel-color);
-    background: var(--[--panel-color]);
+    background: var(-- [--panel-color]);
     border: solid var(--panel-color);
     border-width: 0 var(--arrow-stroke) var(--arrow-stroke) 0;
 }

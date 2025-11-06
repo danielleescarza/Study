@@ -1,43 +1,47 @@
 {% extends 'app/base.html' %}
 
 {% block title %}
-  Inventory
+    Inventory
 {% endblock %}
 
 {% block content %}
-  <div class="dash-content">
-    <div class="overview">
-      <div class="title">
-        <a href="{% url 'inventory' %}"><span class="text">Inventory</span></a><i class="uil uil-angle-right-b"></i>
-        <span class="text">Manage</span>
-      </div>
-      <div class="table_box">
-        <div class="table_container">
-          <ul class="">
-            <li>
-              <h1>{{ inventory.description }}</h1>
-            </li>
-            <li>
-              <span>{{ inventory.inventory_type }}</span>
-            </li>
-            <li>
-              <span>{{ inventory.quantity }}</span>
-            </li>
-            <li>
-              <span>{{ inventory.unit }}</span>
-            </li>
-            <li>
-              <span>{{ inventory.arrival_date }}</span>
-            </li>
-            <li>
-              <span>{{ inventory.expiration_date }}</span>
-            </li>
-            <li>
-              <span>{{ inventory.remarks }}</span>
-            </li>
-          </ul>
+    <div class="dash-content">
+        <div class="overview">
+            <div class="title">
+                <a href="{% url 'inventory' %}"><span class="text">Inventory</span></a><i
+                    class="uil uil-angle-right-b"></i>
+                <span class="text">Manage</span>
+            </div>
+            <div class="table_box">
+                <div class="back">
+                    <a href="{% url 'inventory' %}">Back <i class="uil uil-angle-right-b"></i></a>
+                </div>
+                <div class="table_container">
+                    <ul class="">
+                        <li>
+                            <h1>{{ inventory.description }}</h1>
+                        </li>
+                        <li>
+                            <span>{{ inventory.inventory_type }}</span>
+                        </li>
+                        <li>
+                            <span>{{ inventory.quantity }}</span>
+                        </li>
+                        <li>
+                            <span>{{ inventory.unit }}</span>
+                        </li>
+                        <li>
+                            <span>{{ inventory.arrival_date }}</span>
+                        </li>
+                        <li>
+                            <span>{{ inventory.expiration_date }}</span>
+                        </li>
+                        <li>
+                            <span>{{ inventory.remarks }}</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 {% endblock %}

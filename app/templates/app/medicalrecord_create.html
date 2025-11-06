@@ -1,262 +1,343 @@
-{% extends 'app/base.html' %}
+// {% extends 'app/base.html' %}
 {% load static %}
 
 {% block title %}
-  Medical Record
+    Medical Record
 {% endblock %}
 
 {% block content %}
-  <div class="dash-content">
-    <div class="overview">
-      <div class="title">
-        <a href="{% url 'medicalrecords' %}"><span class="text">Medical Record</span></a><i class="uil uil-angle-right-b"></i>
-        <span class="text">Add a Medical Record</span>
-      </div>
-      <div class="table_box">
-        <div class="back">
-          <a href="{% url 'medicalrecords' %}">Back <i class="uil uil-angle-right-b"></i></a>
-        </div>
-        <div class="table_container">
-          <div class="create_body medical_record">
-            <div class="create">
-              <div class="title medical_record">
-                <span class="form-title">Add a Medical Record</span><br />
-                <span style="color:#707070;">The informaton on this form will be treated as confidential and will only be shared with school personnel on a need-to-know basis.</span>
-              </div>
-              <form method="POST" action="{% url 'medicalrecords_create' %}">
-                {% csrf_token %}
-                <legend>
-                <div class="input-box">
-                  <label for="user_name">Patient</label>
-                  <input list="user-options" id="user_name" name="user_name" class="input-field" placeholder="Select patient" autocomplete="off" required />
-                  <datalist id="user-options">
-                    {% for user in users %}
-                      <option data-userid="{{ user.id }}" value="{{ user.first_name }} {{ user.last_name }}">{{ user.student_number }}</option>
-                    {% empty %}
-                      <option value="No users available"></option>
-                    {% endfor %}
-                  </datalist>
-                  <input type="hidden" id="user" name="user" required />
-                </div>
-
-                <!-- Basic Information -->
-                <div class="input-box">
-                  <label for="date_recorded">Date Recorded</label>
-                  <input type="date" class="input-field" id="date_recorded" name="date_recorded" value="{{ form.date_recorded.value|date:'Y-m-d' }}" required />
-                </div>
-                <div class="input-box">
-                  <label for="birth_date">Birth Date</label>
-                  <input type="date" class="input-field" id="birth_date" name="birth_date" required />
-                </div>
-                <div class="input-box">
-                  <label for="age">Age</label>
-                  <input type="number" class="input-field" id="age" name="age" placeholder="Age" required />
-                </div>
-                <div class="input-box">
-                  <label for="sex">Sex</label>
-                  <select id="sex" name="sex" class="input-field" required>
-                    <option value="" disabled selected>Select sex</option>
-                    <option value="M">Male</option>
-                    <option value="F">Female</option>
-                  </select>
-                </div>
-                <div class="input-box">
-                  <label for="residence">Residence</label>
-                  <select id="residence" name="residence" class="input-field" required>
-                    <option value="" disabled selected>Select residence</option>
-                    <option value="both">Both Parents</option>
-                    <option value="father">Father</option>
-                    <option value="mother">Mother</option>
-                    <option value="guardian">Guardian</option>
-                  </select>
-                </div>
-
-                <!-- Father's Information -->
-                <h3>Father's Information</h3>
-                <div class="input-box">
-                  <label for="fathers_name">Father's Name</label>
-                  <input type="text" class="input-field" id="fathers_name" name="fathers_name" placeholder="Father's Name" />
-                </div>
-                <div class="input-box">
-                  <label for="fathers_home_address">Father's Home Address</label>
-                  <textarea class="input-field" id="fathers_home_address" name="fathers_home_address" placeholder="Father's Home Address"></textarea>
-                </div>
-                <div class="input-box">
-                  <label for="fathers_contact_number">Father's Contact Number</label>
-                  <input type="text" class="input-field" id="fathers_contact_number" name="fathers_contact_number" placeholder="Father's Contact Number" />
-                </div>
-
-                <!-- Mother's Information -->
-                <h3>Mother's Information</h3>
-                <div class="input-box">
-                  <label for="mothers_name">Mother's Name</label>
-                  <input type="text" class="input-field" id="mothers_name" name="mothers_name" placeholder="Mother's Name" />
-                </div>
-                <div class="input-box">
-                  <label for="mothers_home_address">Mother's Home Address</label>
-                  <textarea class="input-field" id="mothers_home_address" name="mothers_home_address" placeholder="Mother's Home Address"></textarea>
-                </div>
-                <div class="input-box">
-                  <label for="mothers_contact_number">Mother's Contact Number</label>
-                  <input type="text" class="input-field" id="mothers_contact_number" name="mothers_contact_number" placeholder="Mother's Contact Number" />
-                </div>
-
-                <!-- Primary Contact's Information -->
-                <h3>Primary Contact's Information</h3>
-                <div class="input-box">
-                  <label for="primarycontact_name">Primary Contact Name</label>
-                  <input type="text" class="input-field" id="primarycontact_name" name="primarycontact_name" placeholder="Primary Contact Name" />
-                </div>
-                <div class="input-box">
-                  <label for="primarycontact_number">Primary Contact Number</label>
-                  <input type="text" class="input-field" id="primarycontact_number" name="primarycontact_number" placeholder="Primary Contact Number" />
-                </div>
-
-                <!-- Allergies -->
-                <h3>Allergies</h3>
-                <div class="input-box">
-                  <label for="medication_allergies">Medication Allergies</label>
-                  <textarea class="input-field" id="medication_allergies" name="medication_allergies" placeholder="Medication Allergies"></textarea>
-                </div>
-                <div class="input-box">
-                  <label for="food_allergies">Food Allergies</label>
-                  <textarea class="input-field" id="food_allergies" name="food_allergies" placeholder="Food Allergies"></textarea>
-                </div>
-                <div class="input-box">
-                  <label for="other_allergies">Other Allergies</label>
-                  <textarea class="input-field" id="other_allergies" name="other_allergies" placeholder="Other Allergies"></textarea>
-                </div>
-                <div class="input-box">
-                  <label for="severeallergic_reaction"><input type="checkbox" id="severeallergic_reaction" name="severeallergic_reaction" />Severe Allergic Reaction</label>
-                </div>
-
-                <!-- Asthma -->
-                <h3>Asthma</h3>
-                <div class="input-box">
-                  <label for="asthma_history"><input type="checkbox" id="asthma_history" name="asthma_history" />Asthma History</label>
-                </div>
-                <div class="input-box">
-                  <label for="carries_inhaler"><input type="checkbox" id="carries_inhaler" name="carries_inhaler" />Carries Inhaler</label>
-                </div>
-
-                <!-- Conditions with Age of Diagnosis -->
-                <h3>Conditions with Age of Diagnosis</h3>
-                <div class="input-box">
-                  <label for="diabetes_age">Diabetes Age</label>
-                  <input type="number" class="input-field" id="diabetes_age" name="diabetes_age" placeholder="Age of Diagnosis" />
-                </div>
-                <div class="input-box">
-                  <label for="meningitis_age">Meningitis Age</label>
-                  <input type="number" class="input-field" id="meningitis_age" name="meningitis_age" placeholder="Age of Diagnosis" />
-                </div>
-                <div class="input-box">
-                  <label for="tuberculosis_age">Tuberculosis Age</label>
-                  <input type="number" class="input-field" id="tuberculosis_age" name="tuberculosis_age" placeholder="Age of Diagnosis" />
-                </div>
-                <div class="input-box">
-                  <label for="pneumonia_age">Pneumonia Age</label>
-                  <input type="number" class="input-field" id="pneumonia_age" name="pneumonia_age" placeholder="Age of Diagnosis" />
-                </div>
-                <div class="input-box">
-                  <label for="heart_disorder_age">Heart Disorder Age</label>
-                  <input type="number" class="input-field" id="heart_disorder_age" name="heart_disorder_age" placeholder="Age of Diagnosis" />
-                </div>
-                <div class="input-box">
-                  <label for="urinary_disorder_age">Urinary Disorder Age</label>
-                  <input type="number" class="input-field" id="urinary_disorder_age" name="urinary_disorder_age" placeholder="Age of Diagnosis" />
-                </div>
-                <div class="input-box">
-                  <label for="epilepsy_age">Epilepsy Age</label>
-                  <input type="number" class="input-field" id="epilepsy_age" name="epilepsy_age" placeholder="Age of Diagnosis" />
-                </div>
-                <div class="input-box">
-                  <label for="scoliosis_age">Scoliosis Age</label>
-                  <input type="number" class="input-field" id="scoliosis_age" name="scoliosis_age" placeholder="Age of Diagnosis" />
-                </div>
-                <div class="input-box">
-                  <label for="psoriasis_age">Psoriasis Age</label>
-                  <input type="number" class="input-field" id="psoriasis_age" name="psoriasis_age" placeholder="Age of Diagnosis" />
-                </div>
-                <div class="input-box">
-                  <label for="vitiligo_age">Vitiligo Age</label>
-                  <input type="number" class="input-field" id="vitiligo_age" name="vitiligo_age" placeholder="Age of Diagnosis" />
-                </div>
-                <div class="input-box">
-                  <label for="atopic_dermatitis_age">Atopic Dermatitis Age</label>
-                  <input type="number" class="input-field" id="atopic_dermatitis_age" name="atopic_dermatitis_age" placeholder="Age of Diagnosis" />
-                </div>
-                <div class="input-box">
-                  <label for="impetigo_age">Impetigo Age</label>
-                  <input type="number" class="input-field" id="impetigo_age" name="impetigo_age" placeholder="Age of Diagnosis" />
-                </div>
-                <div class="input-box">
-                  <label for="other_conditions">Other Conditions</label>
-                  <textarea class="input-field" id="other_conditions" name="other_conditions" placeholder="Other Conditions"></textarea>
-                </div>
-
-                <!-- Hospitalization Information -->
-                <h3>Hospitalization Information</h3>
-                <div class="input-box">
-                  <label for="hospitalization_details">Hospitalization Details</label>
-                  <textarea class="input-field" id="hospitalization_details" name="hospitalization_details" placeholder="Hospitalization Details"></textarea>
-                </div>
-
-                <!-- Eye Problems -->
-                <h3>Eye Problems</h3>
-                <div class="input-box">
-                  <label for="wears_eyeglasses_or_contacts"><input type="checkbox" id="wears_eyeglasses_or_contacts" name="wears_eyeglasses_or_contacts" />Wears Eyeglasses or Contacts</label>
-                </div>
-                <div class="input-box">
-                  <label for="eye_vision_problem"><input type="checkbox" id="eye_vision_problem" name="eye_vision_problem" />Eye Vision Problem</label>
-                </div>
-                <div class="input-box">
-                  <label for="eye_vision_description">Eye Vision Description</label>
-                  <textarea class="input-field" id="eye_vision_description" name="eye_vision_description" placeholder="Eye Vision Description"></textarea>
-                </div>
-
-                <!-- Ear Problems -->
-                <h3>Ear Problems</h3>
-                <div class="input-box">
-                  <label for="hearing_problems"><input type="checkbox" id="hearing_problems" name="hearing_problems" />Hearing Problems</label>
-                </div>
-                <div class="input-box">
-                  <label for="hearing_description">Hearing Description</label>
-                  <textarea class="input-field" id="hearing_description" name="hearing_description" placeholder="Hearing Description"></textarea>
-                </div>
-
-                <div class="input-submit">
-                  <button class="submit-btn" type="submit"><label>Add Medical Record</label></button>
-                </div>
-                {{ form.errors }}
-              </form>
+    <div class="dash-content">
+        <div class="overview">
+            <div class="title">
+                <a href="{% url 'medicalrecords' %}"><span class="text">Medical Record</span></a><i
+                    class="uil uil-angle-right-b"></i>
+                <span class="text">Add a Medical Record</span>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+            <div class="table_box">
+                <div class="back">
+                    <a href="{% url 'medicalrecords' %}">Back <i class="uil uil-angle-right-b"></i></a>
+                </div>
+                <div class="table_container">
+                    <div class="create_body medical_record">
+                        <div class="create">
+                            <div class="title medical_record">
+                                <span class="form-title">Add a Medical Record</span>
+                                <span style="color:#707070;">(The informaton on this form will be treated as confidential and will only be shared with school personnel on a need-to-know basis.)</span>
+                            </div>
+                            <form method="POST" action="{% url 'medicalrecords_create' %}">
+                                {% csrf_token %}
+                                <fieldset>
+                                    <legend>Patient Information</legend>
+                                    <div class="input-box">
+                                        <label for="user_name">Patient</label>
+                                        <input list="user-options" id="user_name" name="user_name" class="input-field"
+                                               placeholder="Select patient" autocomplete="off" required/>
+                                        <datalist id="user-options">
+                                            {% for user in users %}
+                                                <option data-userid="{{ user.id }}"
+                                                        value="{{ user.first_name }} {{ user.last_name }}">{{ user.student_number }}</option>
+                                            {% empty %}
+                                                <option value="No users available"></option>
+                                            {% endfor %}
+                                        </datalist>
+                                        <input type="hidden" id="user" name="user" required/>
+                                    </div>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const userNameInput = document.getElementById('user_name')
-      const userIdInput = document.getElementById('user')
-      const dataList = document.getElementById('user-options')
-    
-      userNameInput.addEventListener('input', function () {
-        const value = userNameInput.value
-        let userId = ''
-    
-        // Loop through the datalist options to find a match
-        for (let option of dataList.options) {
-          if (option.value === value) {
-            userId = option.getAttribute('data-userid')
-            break
-          }
-        }
-    
-        // Set the hidden input value to the user ID or reset if no match
-        userIdInput.value = userId || ''
-      })
-    })
-  </script>
+                                    <div class="input-box">
+                                        <label for="date_recorded">Date Recorded</label>
+                                        <input type="date" class="input-field" id="date_recorded" name="date_recorded"
+                                               value="{{ form.date_recorded.value|date:'Y-m-d' }}" required/>
+                                    </div>
+                                    <div class="inline-fields patient">
+                                        <div class="input-box">
+                                            <label for="birth_date">Birth Date</label>
+                                            <input type="date" class="input-field" id="birth_date" name="birth_date"
+                                                   required/>
+                                        </div>
+                                        <div class="input-box">
+                                            <label for="age">Age</label>
+                                            <input type="number" class="input-field" id="age" name="age"
+                                                   placeholder="Age" required/>
+                                        </div>
+                                        <div class="input-box">
+                                            <label for="sex">Sex</label>
+                                            <select id="sex" name="sex" class="input-field" required>
+                                                <option value="" disabled selected>Select sex</option>
+                                                <option value="M">Male</option>
+                                                <option value="F">Female</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="input-box">
+                                        <label for="residence">Residing with</label>
+                                        <select id="residence" name="residence" class="input-field" required>
+                                            <option value="" disabled selected>Select residence</option>
+                                            <option value="both">Both Parents</option>
+                                            <option value="father">Father</option>
+                                            <option value="mother">Mother</option>
+                                            <option value="guardian">Guardian</option>
+                                        </select>
+                                    </div>
+                                </fieldset>
+
+                                <fieldset>
+                                    <legend>Father's Information</legend>
+                                    <div class="input-box">
+                                        <label for="fathers_name">Father's Name</label>
+                                        <input type="text" class="input-field" id="fathers_name" name="fathers_name"
+                                               placeholder="Father's Name"/>
+                                    </div>
+                                    <div class="input-box">
+                                        <label for="fathers_home_address">Father's Home Address</label>
+                                        <textarea class="input-field" id="fathers_home_address"
+                                                  name="fathers_home_address"
+                                                  placeholder="Father's Home Address"></textarea>
+                                    </div>
+                                    <div class="input-box">
+                                        <label for="fathers_contact_number">Father's Contact Number</label>
+                                        <input type="text" class="input-field" id="fathers_contact_number"
+                                               name="fathers_contact_number" placeholder="Father's Contact Number"/>
+                                    </div>
+                                </fieldset>
+
+                                <fieldset>
+                                    <legend>Mother's Information</legend>
+                                    <div class="input-box">
+                                        <label for="mothers_name">Mother's Name</label>
+                                        <input type="text" class="input-field" id="mothers_name" name="mothers_name"
+                                               placeholder="Mother's Name"/>
+                                    </div>
+                                    <div class="input-box">
+                                        <label for="mothers_home_address">Mother's Home Address</label>
+                                        <textarea class="input-field" id="mothers_home_address"
+                                                  name="mothers_home_address"
+                                                  placeholder="Mother's Home Address"></textarea>
+                                    </div>
+                                    <div class="input-box">
+                                        <label for="mothers_contact_number">Mother's Contact Number</label>
+                                        <input type="text" class="input-field" id="mothers_contact_number"
+                                               name="mothers_contact_number" placeholder="Mother's Contact Number"/>
+                                    </div>
+                                </fieldset>
+
+                                <fieldset>
+                                    <legend>Primary Contact's Information</legend>
+                                    <div class="input-box">
+                                        <label for="primarycontact_name">Primary Contact Name</label>
+                                        <input type="text" class="input-field" id="primarycontact_name"
+                                               name="primarycontact_name" placeholder="Primary Contact Name"/>
+                                    </div>
+                                    <div class="input-box">
+                                        <label for="primarycontact_number">Primary Contact Number</label>
+                                        <input type="text" class="input-field" id="primarycontact_number"
+                                               name="primarycontact_number" placeholder="Primary Contact Number"/>
+                                    </div>
+                                </fieldset>
+
+                                <fieldset>
+                                    <legend>Allergies</legend>
+                                    <div class="input-box">
+                                        <label for="medication_allergies">Medication Allergies</label>
+                                        <textarea class="input-field" id="medication_allergies"
+                                                  name="medication_allergies"
+                                                  placeholder="Medication Allergies"></textarea>
+                                    </div>
+                                    <div class="input-box">
+                                        <label for="food_allergies">Food Allergies</label>
+                                        <textarea class="input-field" id="food_allergies" name="food_allergies"
+                                                  placeholder="Food Allergies"></textarea>
+                                    </div>
+                                    <div class="input-box">
+                                        <label for="other_allergies">Other Allergies</label>
+                                        <textarea class="input-field" id="other_allergies" name="other_allergies"
+                                                  placeholder="Other Allergies"></textarea>
+                                    </div>
+                                    <div class="input-box">
+                                        <label>Any history of severe allergic reactions or anaphylactic
+                                            reaction?</label>
+                                        <div class="inline-radio">
+                                            <div class="radio">
+                                                <input type="radio" id="severeallergic_reaction_yes"
+                                                       name="severeallergic_reaction" value="yes"/> Yes
+                                            </div>
+                                            <div class="radio">
+                                                <input type="radio" id="severeallergic_reaction_no"
+                                                       name="severeallergic_reaction" value="no"/> No
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                                <fieldset>
+                                    <legend>Asthma</legend>
+                                    <div class="input-box">
+                                        <label>Any history of asthma?</label>
+                                        <div class="inline-radio">
+                                            <div class="radio">
+                                                <input type="radio" id="asthma_history_yes"
+                                                       name="asthma_history" value="yes"/> Yes
+                                            </div>
+                                            <div class="radio">
+                                                <input type="radio" id="asthma_history_no"
+                                                       name="asthma_history" value="no"/> No
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="input-box">
+                                        <label for="carries_inhaler"><input type="checkbox" id="carries_inhaler"
+                                                                            name="carries_inhaler"/>Carries
+                                            Inhaler</label>
+                                    </div>
+                                </fieldset>
+
+                                <fieldset>
+                                    <legend>Conditions with Age of Diagnosis</legend>
+                                    <div class="input-box">
+                                        <label for="diabetes_age">Diabetes Age</label>
+                                        <input type="number" class="input-field" id="diabetes_age" name="diabetes_age"
+                                               placeholder="Age of Diagnosis"/>
+                                    </div>
+                                    <div class="input-box">
+                                        <label for="meningitis_age">Meningitis Age</label>
+                                        <input type="number" class="input-field" id="meningitis_age"
+                                               name="meningitis_age" placeholder="Age of Diagnosis"/>
+                                    </div>
+                                    <div class="input-box">
+                                        <label for="tuberculosis_age">Tuberculosis Age</label>
+                                        <input type="number" class="input-field" id="tuberculosis_age"
+                                               name="tuberculosis_age" placeholder="Age of Diagnosis"/>
+                                    </div>
+                                    <div class="input-box">
+                                        <label for="pneumonia_age">Pneumonia Age</label>
+                                        <input type="number" class="input-field" id="pneumonia_age" name="pneumonia_age"
+                                               placeholder="Age of Diagnosis"/>
+                                    </div>
+                                    <div class="input-box">
+                                        <label for="heart_disorder_age">Heart Disorder Age</label>
+                                        <input type="number" class="input-field" id="heart_disorder_age"
+                                               name="heart_disorder_age" placeholder="Age of Diagnosis"/>
+                                    </div>
+                                    <div class="input-box">
+                                        <label for="urinary_disorder_age">Urinary Disorder Age</label>
+                                        <input type="number" class="input-field" id="urinary_disorder_age"
+                                               name="urinary_disorder_age" placeholder="Age of Diagnosis"/>
+                                    </div>
+                                    <div class="input-box">
+                                        <label for="epilepsy_age">Epilepsy Age</label>
+                                        <input type="number" class="input-field" id="epilepsy_age" name="epilepsy_age"
+                                               placeholder="Age of Diagnosis"/>
+                                    </div>
+                                    <div class="input-box">
+                                        <label for="scoliosis_age">Scoliosis Age</label>
+                                        <input type="number" class="input-field" id="scoliosis_age" name="scoliosis_age"
+                                               placeholder="Age of Diagnosis"/>
+                                    </div>
+                                    <div class="input-box">
+                                        <label for="psoriasis_age">Psoriasis Age</label>
+                                        <input type="number" class="input-field" id="psoriasis_age" name="psoriasis_age"
+                                               placeholder="Age of Diagnosis"/>
+                                    </div>
+                                    <div class="input-box">
+                                        <label for="vitiligo_age">Vitiligo Age</label>
+                                        <input type="number" class="input-field" id="vitiligo_age" name="vitiligo_age"
+                                               placeholder="Age of Diagnosis"/>
+                                    </div>
+                                    <div class="input-box">
+                                        <label for="atopic_dermatitis_age">Atopic Dermatitis Age</label>
+                                        <input type="number" class="input-field" id="atopic_dermatitis_age"
+                                               name="atopic_dermatitis_age" placeholder="Age of Diagnosis"/>
+                                    </div>
+                                    <div class="input-box">
+                                        <label for="impetigo_age">Impetigo Age</label>
+                                        <input type="number" class="input-field" id="impetigo_age" name="impetigo_age"
+                                               placeholder="Age of Diagnosis"/>
+                                    </div>
+                                    <div class="input-box">
+                                        <label for="other_conditions">Other Conditions</label>
+                                        <textarea class="input-field" id="other_conditions" name="other_conditions"
+                                                  placeholder="Other Conditions"></textarea>
+                                    </div>
+                                </fieldset>
+
+                                <fieldset>
+                                    <legend>Hospitalization Information</legend>
+                                    <div class="input-box">
+                                        <label for="hospitalization_details">Hospitalization Details</label>
+                                        <textarea class="input-field" id="hospitalization_details"
+                                                  name="hospitalization_details"
+                                                  placeholder="Hospitalization Details"></textarea>
+                                    </div>
+                                </fieldset>
+
+                                <fieldset>
+                                    <legend>Eye Problems</legend>
+                                    <div class="input-box">
+                                        <label for="wears_eyeglasses_or_contacts"><input type="checkbox"
+                                                                                         id="wears_eyeglasses_or_contacts"
+                                                                                         name="wears_eyeglasses_or_contacts"/>Wears
+                                            Eyeglasses or Contacts</label>
+                                    </div>
+                                    <div class="input-box">
+                                        <label for="eye_vision_problem"><input type="checkbox" id="eye_vision_problem"
+                                                                               name="eye_vision_problem"/>Eye Vision
+                                            Problem</label>
+                                    </div>
+                                    <div class="input-box">
+                                        <label for="eye_vision_description">Eye Vision Description</label>
+                                        <textarea class="input-field" id="eye_vision_description"
+                                                  name="eye_vision_description"
+                                                  placeholder="Eye Vision Description"></textarea>
+                                    </div>
+                                </fieldset>
+
+                                <fieldset>
+                                    <legend>Ear Problems</legend>
+                                    <div class="input-box">
+                                        <label for="hearing_problems"><input type="checkbox" id="hearing_problems"
+                                                                             name="hearing_problems"/>Hearing
+                                            Problems</label>
+                                    </div>
+                                    <div class="input-box">
+                                        <label for="hearing_description">Hearing Description</label>
+                                        <textarea class="input-field" id="hearing_description"
+                                                  name="hearing_description"
+                                                  placeholder="Hearing Description"></textarea>
+                                    </div>
+                                </fieldset>
+
+                                <div class="input-submit">
+                                    <button class="submit-btn" type="submit"><label>Add Medical Record</label></button>
+                                </div>
+                                {{ form.errors }}
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const userNameInput = document.getElementById('user_name')
+            const userIdInput = document.getElementById('user')
+            const dataList = document.getElementById('user-options')
+
+            userNameInput.addEventListener('input', function () {
+                const value = userNameInput.value
+                let userId = ''
+
+                // Loop through the datalist options to find a match
+                for (let option of dataList.options) {
+                    if (option.value === value) {
+                        userId = option.getAttribute('data-userid')
+                        break
+                    }
+                }
+
+                // Set the hidden input value to the user ID or reset if no match
+                userIdInput.value = userId || ''
+            })
+        })
+    </script>
 {% endblock %}
