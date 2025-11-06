@@ -81,12 +81,13 @@
                                 </fieldset>
 
                                 <fieldset>
-                                    <legend>Father's Information</legend>
+                                    <legend>Parents Information</legend>
                                     <div class="input-box">
                                         <label for="fathers_name">Father's Name</label>
                                         <input type="text" class="input-field" id="fathers_name" name="fathers_name"
                                                placeholder="Father's Name"/>
                                     </div>
+
                                     <div class="input-box">
                                         <label for="fathers_home_address">Father's Home Address</label>
                                         <textarea class="input-field" id="fathers_home_address"
@@ -98,10 +99,7 @@
                                         <input type="text" class="input-field" id="fathers_contact_number"
                                                name="fathers_contact_number" placeholder="Father's Contact Number"/>
                                     </div>
-                                </fieldset>
 
-                                <fieldset>
-                                    <legend>Mother's Information</legend>
                                     <div class="input-box">
                                         <label for="mothers_name">Mother's Name</label>
                                         <input type="text" class="input-field" id="mothers_name" name="mothers_name"
@@ -121,7 +119,7 @@
                                 </fieldset>
 
                                 <fieldset>
-                                    <legend>Primary Contact's Information</legend>
+                                    <legend>Primary Contact's Information (If parents cannot be reached)</legend>
                                     <div class="input-box">
                                         <label for="primarycontact_name">Primary Contact Name</label>
                                         <input type="text" class="input-field" id="primarycontact_name"
@@ -135,20 +133,20 @@
                                 </fieldset>
 
                                 <fieldset>
-                                    <legend>Allergies</legend>
+                                    <legend>Health History</legend>
                                     <div class="input-box">
-                                        <label for="medication_allergies">Medication Allergies</label>
+                                        <label for="medication_allergies">Any medication allergies?</label>
                                         <textarea class="input-field" id="medication_allergies"
                                                   name="medication_allergies"
                                                   placeholder="Medication Allergies"></textarea>
                                     </div>
                                     <div class="input-box">
-                                        <label for="food_allergies">Food Allergies</label>
+                                        <label for="food_allergies">Any food allergies?</label>
                                         <textarea class="input-field" id="food_allergies" name="food_allergies"
                                                   placeholder="Food Allergies"></textarea>
                                     </div>
                                     <div class="input-box">
-                                        <label for="other_allergies">Other Allergies</label>
+                                        <label for="other_allergies">Other Allergies:</label>
                                         <textarea class="input-field" id="other_allergies" name="other_allergies"
                                                   placeholder="Other Allergies"></textarea>
                                     </div>
@@ -166,10 +164,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </fieldset>
 
-                                <fieldset>
-                                    <legend>Asthma</legend>
                                     <div class="input-box">
                                         <div class="inline-fields">
                                             <label>Any history of asthma?</label>
@@ -184,8 +179,8 @@
                                                 </div>
                                             </div>
                                         </div>
-
                                     </div>
+
                                     <div class="input-box">
                                         <div class="inline-fields">
                                             <label>Do you carry an asthma inhaler?</label>
@@ -201,10 +196,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </fieldset>
 
-                                <fieldset>
-                                    <legend>Any illness?</legend>
                                     <div class="input-box">
                                         <label for="illness">Any illness?</label>
                                         <select id="illness" name="illness" class="input-field" required>
@@ -225,65 +217,84 @@
                                         </select>
                                     </div>
                                     <div class="input-box">
-                                        <label for="atopic_dermatitis_age">Atopic Dermatitis Age</label>
-                                        <input type="number" class="input-field" id="atopic_dermatitis_age"
-                                               name="atopic_dermatitis_age" placeholder="Age of Diagnosis"/>
+                                        <label for="illness_age">Age when Diagnosed</label>
+                                        <input type="number" class="input-field" id="illness_age"
+                                               name="illness_age" placeholder="Age when Diagnosed"/>
                                     </div>
                                     <div class="input-box">
-                                        <label for="impetigo_age">Impetigo Age</label>
-                                        <input type="number" class="input-field" id="impetigo_age" name="impetigo_age"
-                                               placeholder="Age of Diagnosis"/>
+                                        <label for="other_illness">Other Illness:</label>
+                                        <textarea class="input-field" id="other_illness" name="other_illness"
+                                                  placeholder="Other Illness"></textarea>
                                     </div>
-                                    <div class="input-box">
-                                        <label for="other_conditions">Other Conditions</label>
-                                        <textarea class="input-field" id="other_conditions" name="other_conditions"
-                                                  placeholder="Other Conditions"></textarea>
-                                    </div>
-                                </fieldset>
 
-                                <fieldset>
-                                    <legend>Hospitalization Information</legend>
                                     <div class="input-box">
-                                        <label for="hospitalization_details">Hospitalization Details</label>
+                                        <label for="hospitalization_details">Any hospitalization or serious
+                                            injuries/illness?</label>
                                         <textarea class="input-field" id="hospitalization_details"
                                                   name="hospitalization_details"
                                                   placeholder="Hospitalization Details"></textarea>
                                     </div>
-                                </fieldset>
 
-                                <fieldset>
-                                    <legend>Eye Problems</legend>
                                     <div class="input-box">
-                                        <label for="wears_eyeglasses_or_contacts"><input type="checkbox"
-                                                                                         id="wears_eyeglasses_or_contacts"
-                                                                                         name="wears_eyeglasses_or_contacts"/>Wears
-                                            Eyeglasses or Contacts</label>
+                                        <div class="inline-fields">
+                                            <label>Do you wear eyeglasses or contact lenses?</label>
+                                            <div class="inline-radio">
+                                                <div class="radio">
+                                                    <input type="radio" id="wears_eyeglasses_or_contacts_yes"
+                                                           name="wears_eyeglasses_or_contacts" value="yes"/> Yes
+                                                </div>
+                                                <div class="radio">
+                                                    <input type="radio" id="wears_eyeglasses_or_contacts_no"
+                                                           name="wears_eyeglasses_or_contacts" value="no"/> No
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
+
                                     <div class="input-box">
-                                        <label for="eye_vision_problem"><input type="checkbox" id="eye_vision_problem"
-                                                                               name="eye_vision_problem"/>Eye Vision
-                                            Problem</label>
+                                        <div class="inline-fields">
+                                            <label>Any eye or vision problems?</label>
+                                            <div class="inline-radio">
+                                                <div class="radio">
+                                                    <input type="radio" id="eye_vision_problem_yes"
+                                                           name="eye_vision_problem" value="yes"/> Yes
+                                                </div>
+                                                <div class="radio">
+                                                    <input type="radio" id="eye_vision_problem_no"
+                                                           name="eye_vision_problem" value="no"/> No
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
+
                                     <div class="input-box">
-                                        <label for="eye_vision_description">Eye Vision Description</label>
+                                        <label for="eye_vision_description">Eye or Vision Problem Description</label>
                                         <textarea class="input-field" id="eye_vision_description"
                                                   name="eye_vision_description"
-                                                  placeholder="Eye Vision Description"></textarea>
+                                                  placeholder="Please give details"></textarea>
                                     </div>
-                                </fieldset>
 
-                                <fieldset>
-                                    <legend>Ear Problems</legend>
                                     <div class="input-box">
-                                        <label for="hearing_problems"><input type="checkbox" id="hearing_problems"
-                                                                             name="hearing_problems"/>Hearing
-                                            Problems</label>
+                                        <div class="inline-fields">
+                                            <label>Any hearing problems?</label>
+                                            <div class="inline-radio">
+                                                <div class="radio">
+                                                    <input type="radio" id="hearing_problems_yes"
+                                                           name="hearing_problems" value="yes"/> Yes
+                                                </div>
+                                                <div class="radio">
+                                                    <input type="radio" id="hearing_problems_no"
+                                                           name="hearing_problems" value="no"/> No
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
+
                                     <div class="input-box">
-                                        <label for="hearing_description">Hearing Description</label>
+                                        <label for="hearing_description">Hearing Probleem Description</label>
                                         <textarea class="input-field" id="hearing_description"
                                                   name="hearing_description"
-                                                  placeholder="Hearing Description"></textarea>
+                                                  placeholder="Please give details"></textarea>
                                     </div>
                                 </fieldset>
 
