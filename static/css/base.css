@@ -711,6 +711,10 @@ fieldset {
     gap: 30px;
 }
 
+.radio {
+    color: var(--black-light-color);
+}
+
 /* Creation Form */
 
 .input-box {

@@ -125,11 +125,13 @@ class MedicalRecordListView(ListView):
     context_object_name = "medicalrecords"
     template_name = "app/medicalrecord_list.html"
     ordering = ["-date_recorded"]
-    
+
+
 class MedicalRecordDetailView(DetailView):
     model = MedicalRecord
     context_object_name = "medicalrecord"
     template_name = "app/medicalrecord_detail.html"
+
 
 class MedicalRecordCreateView(CreateView):
     model = MedicalRecord
@@ -153,19 +155,9 @@ class MedicalRecordCreateView(CreateView):
         "severeallergic_reaction",
         "asthma_history",
         "carries_inhaler",
-        "diabetes_age",
-        "meningitis_age",
-        "tuberculosis_age",
-        "pneumonia_age",
-        "heart_disorder_age",
-        "urinary_disorder_age",
-        "epilepsy_age",
-        "scoliosis_age",
-        "psoriasis_age",
-        "vitiligo_age",
-        "atopic_dermatitis_age",
-        "impetigo_age",
-        "other_conditions",
+        "illness",
+        "illness_age",
+        "other_illness",
         "hospitalization_details",
         "wears_eyeglasses_or_contacts",
         "eye_vision_problem",
@@ -175,12 +167,13 @@ class MedicalRecordCreateView(CreateView):
     ]
     template_name = "app/medicalrecord_create.html"
     success_url = reverse_lazy("medicalrecords")
-    
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["users"] = CustomUser.objects.all()
         return context
-    
+
+
 class MedicalRecordUpdateView(UpdateView):
     model = MedicalRecord
     fields = [
@@ -203,19 +196,9 @@ class MedicalRecordUpdateView(UpdateView):
         "severeallergic_reaction",
         "asthma_history",
         "carries_inhaler",
-        "diabetes_age",
-        "meningitis_age",
-        "tuberculosis_age",
-        "pneumonia_age",
-        "heart_disorder_age",
-        "urinary_disorder_age",
-        "epilepsy_age",
-        "scoliosis_age",
-        "psoriasis_age",
-        "vitiligo_age",
-        "atopic_dermatitis_age",
-        "impetigo_age",
-        "other_conditions",
+        "illness",
+        "illness_age",
+        "other_illness",
         "hospitalization_details",
         "wears_eyeglasses_or_contacts",
         "eye_vision_problem",
@@ -225,7 +208,7 @@ class MedicalRecordUpdateView(UpdateView):
     ]
     template_name = "app/medicalrecord_update.html"
     success_url = reverse_lazy("medicalrecords")
-    
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["users"] = CustomUser.objects.all()
@@ -236,7 +219,7 @@ class MedicalRecordDeleteView(DeleteView):
     model = MedicalRecord
     template_name = "app/medicalrecord_delete.html"
     success_url = reverse_lazy("medicalrecords")
-    
+
 
 class InventoryListView(ListView):
     model = Inventory

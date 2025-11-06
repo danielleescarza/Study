@@ -171,76 +171,58 @@
                                 <fieldset>
                                     <legend>Asthma</legend>
                                     <div class="input-box">
-                                        <label>Any history of asthma?</label>
-                                        <div class="inline-radio">
-                                            <div class="radio">
-                                                <input type="radio" id="asthma_history_yes"
-                                                       name="asthma_history" value="yes"/> Yes
-                                            </div>
-                                            <div class="radio">
-                                                <input type="radio" id="asthma_history_no"
-                                                       name="asthma_history" value="no"/> No
+                                        <div class="inline-fields">
+                                            <label>Any history of asthma?</label>
+                                            <div class="inline-radio">
+                                                <div class="radio">
+                                                    <input type="radio" id="asthma_history_yes"
+                                                           name="asthma_history" value="yes"/> Yes
+                                                </div>
+                                                <div class="radio">
+                                                    <input type="radio" id="asthma_history_no"
+                                                           name="asthma_history" value="no"/> No
+                                                </div>
                                             </div>
                                         </div>
+
                                     </div>
                                     <div class="input-box">
-                                        <label for="carries_inhaler"><input type="checkbox" id="carries_inhaler"
-                                                                            name="carries_inhaler"/>Carries
-                                            Inhaler</label>
+                                        <div class="inline-fields">
+                                            <label>Do you carry an asthma inhaler?</label>
+                                            <div class="inline-radio">
+                                                <div class="radio">
+                                                    <input type="radio" id="carries_inhaler_yes"
+                                                           name="carries_inhaler" value="yes"/> Yes
+                                                </div>
+                                                <div class="radio">
+                                                    <input type="radio" id="carries_inhaler_no"
+                                                           name="carries_inhaler" value="no"/> No
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </fieldset>
 
                                 <fieldset>
-                                    <legend>Conditions with Age of Diagnosis</legend>
+                                    <legend>Any illness?</legend>
                                     <div class="input-box">
-                                        <label for="diabetes_age">Diabetes Age</label>
-                                        <input type="number" class="input-field" id="diabetes_age" name="diabetes_age"
-                                               placeholder="Age of Diagnosis"/>
-                                    </div>
-                                    <div class="input-box">
-                                        <label for="meningitis_age">Meningitis Age</label>
-                                        <input type="number" class="input-field" id="meningitis_age"
-                                               name="meningitis_age" placeholder="Age of Diagnosis"/>
-                                    </div>
-                                    <div class="input-box">
-                                        <label for="tuberculosis_age">Tuberculosis Age</label>
-                                        <input type="number" class="input-field" id="tuberculosis_age"
-                                               name="tuberculosis_age" placeholder="Age of Diagnosis"/>
-                                    </div>
-                                    <div class="input-box">
-                                        <label for="pneumonia_age">Pneumonia Age</label>
-                                        <input type="number" class="input-field" id="pneumonia_age" name="pneumonia_age"
-                                               placeholder="Age of Diagnosis"/>
-                                    </div>
-                                    <div class="input-box">
-                                        <label for="heart_disorder_age">Heart Disorder Age</label>
-                                        <input type="number" class="input-field" id="heart_disorder_age"
-                                               name="heart_disorder_age" placeholder="Age of Diagnosis"/>
-                                    </div>
-                                    <div class="input-box">
-                                        <label for="urinary_disorder_age">Urinary Disorder Age</label>
-                                        <input type="number" class="input-field" id="urinary_disorder_age"
-                                               name="urinary_disorder_age" placeholder="Age of Diagnosis"/>
-                                    </div>
-                                    <div class="input-box">
-                                        <label for="epilepsy_age">Epilepsy Age</label>
-                                        <input type="number" class="input-field" id="epilepsy_age" name="epilepsy_age"
-                                               placeholder="Age of Diagnosis"/>
-                                    </div>
-                                    <div class="input-box">
-                                        <label for="scoliosis_age">Scoliosis Age</label>
-                                        <input type="number" class="input-field" id="scoliosis_age" name="scoliosis_age"
-                                               placeholder="Age of Diagnosis"/>
-                                    </div>
-                                    <div class="input-box">
-                                        <label for="psoriasis_age">Psoriasis Age</label>
-                                        <input type="number" class="input-field" id="psoriasis_age" name="psoriasis_age"
-                                               placeholder="Age of Diagnosis"/>
-                                    </div>
-                                    <div class="input-box">
-                                        <label for="vitiligo_age">Vitiligo Age</label>
-                                        <input type="number" class="input-field" id="vitiligo_age" name="vitiligo_age"
-                                               placeholder="Age of Diagnosis"/>
+                                        <label for="illness">Any illness?</label>
+                                        <select id="illness" name="illness" class="input-field" required>
+                                            <option value="none">None</option>
+                                            <option value="diabetes">Diabetes</option>
+                                            <option value="meningitis">Meningitis</option>
+                                            <option value="tuberculosis">Tuberculosis</option>
+                                            <option value="pneumonia">Pneumonia</option>
+                                            <option value="heart_disorder">Heart Disorder</option>
+                                            <option value="urinary_disorder">Urinary Disorder</option>
+                                            <option value="epilepsy">Epilepsy</option>
+                                            <option value="scoliosis">Scoliosis</option>
+                                            <option value="psoriasis">Psoriasis</option>
+                                            <option value="vitiligo">Vitiligo</option>
+                                            <option value="atopic_dermatitis">Atopic Dermatitis</option>
+                                            <option value="impetigo">Impetigo</option>
+                                            <option value="other_illness">Other Illness</option>
+                                        </select>
                                     </div>
                                     <div class="input-box">
                                         <label for="atopic_dermatitis_age">Atopic Dermatitis Age</label>

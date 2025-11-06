@@ -31,6 +31,23 @@ class MedicalRecord(models.Model):
         ('mother', 'Mother'),
         ('guardian', 'Guardian'),
     ]
+
+    ILLNESS_CHOICES = [
+        ('none', 'None'),
+        ('diabetes', 'Diabetes'),
+        ('meningitis', 'Meningitis'),
+        ('tuberculosis', 'Tuberculosis'),
+        ('pneumonia', 'Pneumonia'),
+        ('heart_disorder', 'Heart Disorder'),
+        ('urinary_disorder', 'Urinary Disorder'),
+        ('epilepsy', 'Epilepsy'),
+        ('scoliosis', 'Scoliosis'),
+        ('psoriasis', 'Psoriasis'),
+        ('vitiligo', 'Vitiligo'),
+        ('atopic_dermatitis', 'Atopic Dermatitis'),
+        ('impetigo', 'Impetigo'),
+        ('other_illness', 'Other Illness'),
+    ]
     
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     date_recorded = models.DateField(default=datetime.date.today)
@@ -57,29 +74,19 @@ class MedicalRecord(models.Model):
     # Asthma
     asthma_history = models.BooleanField(default=False)
     carries_inhaler = models.BooleanField(default=False)
-    # Conditions with age of diagnosis
-    diabetes_age = models.PositiveIntegerField(null=True, blank=True)
-    meningitis_age = models.PositiveIntegerField(null=True, blank=True)
-    tuberculosis_age = models.PositiveIntegerField(null=True, blank=True)
-    pneumonia_age = models.PositiveIntegerField(null=True, blank=True)
-    heart_disorder_age = models.PositiveIntegerField(null=True, blank=True)
-    urinary_disorder_age = models.PositiveIntegerField(null=True, blank=True)
-    epilepsy_age = models.PositiveIntegerField(null=True, blank=True)
-    scoliosis_age = models.PositiveIntegerField(null=True, blank=True)
-    psoriasis_age = models.PositiveIntegerField(null=True, blank=True)
-    vitiligo_age = models.PositiveIntegerField(null=True, blank=True)
-    atopic_dermatitis_age = models.PositiveIntegerField(null=True, blank=True)
-    impetigo_age = models.PositiveIntegerField(null=True, blank=True)
-    other_conditions = models.TextField(blank=True)
+    # Illness
+    illness = models.CharField(max_length=100, choices=ILLNESS_CHOICES, default="none")
+    illness_age = models.PositiveIntegerField(null=True, blank=True)
+    other_illness = models.TextField(blank=True, null=True)
     # Hospitalization Information
-    hospitalization_details = models.TextField(blank=True)
+    hospitalization_details = models.TextField(blank=True, null=True)
     # Eye Problems
     wears_eyeglasses_or_contacts = models.BooleanField(default=False)
     eye_vision_problem = models.BooleanField(default=False)
-    eye_vision_description = models.TextField(blank=True)
+    eye_vision_description = models.TextField(blank=True, null=True)
     # Ear Problems
     hearing_problems = models.BooleanField(default=False)
-    hearing_description = models.TextField(blank=True)
+    hearing_description = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return f"{self.first_name} - {self.last_name}"
