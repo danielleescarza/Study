@@ -134,10 +134,7 @@ class MedicalRecordDetailView(DetailView):
 class MedicalRecordCreateView(CreateView):
     model = MedicalRecord
     fields = [
-<<<<<<< HEAD
         "date_recorded",
-=======
->>>>>>> 88dea4c453f5e4b3e3ab76d68bde78114d425621
         "birth_date",
         "age",
         "sex",
@@ -187,10 +184,7 @@ class MedicalRecordCreateView(CreateView):
 class MedicalRecordUpdateView(UpdateView):
     model = MedicalRecord
     fields = [
-<<<<<<< HEAD
         "date_recorded",
-=======
->>>>>>> 88dea4c453f5e4b3e3ab76d68bde78114d425621
         "birth_date",
         "age",
         "sex",
