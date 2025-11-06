@@ -31,11 +31,20 @@ class MedicalRecord(models.Model):
         ('mother', 'Mother'),
         ('guardian', 'Guardian'),
     ]
+<<<<<<< HEAD
     
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     date_recorded = models.DateField(default=datetime.date.today)
     birth_date = models.DateField(blank=False, null=False)
     age = models.PositiveBigIntegerField(null=False, blank=False)
+=======
+
+    
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    date_recorded = models.DateField(default=datetime.date.today)
+    birth_date = models.DateField(blank=True, null=True)
+    age = models.PositiveBigIntegerField(null=True, blank=True)
+>>>>>>> 88dea4c453f5e4b3e3ab76d68bde78114d425621
     sex = models.CharField(max_length=1, choices=SEX_CHOICES, default="M")
     residence = models.CharField(max_length=100, choices=RESIDENCE_CHOICES, default="both")
     # Father's Information

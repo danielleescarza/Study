@@ -117,7 +117,11 @@ select {
 .input-field:hover,
 select:hover {
     color: var(--text-color);
+<<<<<<< HEAD
     transform: scale(1.01, 1);
+=======
+    transform: scale(1.05, 1);
+>>>>>>> 88dea4c453f5e4b3e3ab76d68bde78114d425621
 }
 
 ::placeholder {
@@ -610,7 +614,11 @@ nav.close~.dashboard .top {
     width: 100%;
     border-radius: 20px;
     padding: 0 25px 0 50px;
+<<<<<<< HEAD
     color: var(--black-light-color);
+=======
+    color: var(--text-color);
+>>>>>>> 88dea4c453f5e4b3e3ab76d68bde78114d425621
     font-size: 14px;
     font-weight: 400;
     outline: none;
@@ -726,6 +734,7 @@ table tbody tr.data:hover {
 
 }
 
+<<<<<<< HEAD
 .create_body.medical_record form {
     display: flex;
     flex-direction: column;
@@ -740,6 +749,13 @@ table tbody tr.data:hover {
     padding: 0 .5em 1em .5em;
     display: flex;
     flex-direction: column;
+=======
+
+.create {
+    padding: 0 .5em 1em .5em;
+    display: flex;
+    flex-direction: column;
+>>>>>>> 88dea4c453f5e4b3e3ab76d68bde78114d425621
     align-items: center;
 
     .form-title {
@@ -759,7 +775,11 @@ table tbody tr.data:hover {
         margin-bottom: 15px;
         border-radius: 30px;
         border: none;
+<<<<<<< HEAD
         color: var(--black-light-color);
+=======
+        color: #222;
+>>>>>>> 88dea4c453f5e4b3e3ab76d68bde78114d425621
         box-shadow: 0 5px 10px 1px rgba(0, 0, 0, 0.05);
         outline: none;
         transition: .2s;
@@ -767,11 +787,14 @@ table tbody tr.data:hover {
 
 }
 
+<<<<<<< HEAD
 ::placeholder {
     color: var(--black-light-color);
     opacity: 1;
 }
 
+=======
+>>>>>>> 88dea4c453f5e4b3e3ab76d68bde78114d425621
 /* Delete Button */
 
 .delete-btn {
@@ -873,13 +896,21 @@ table tbody tr.data:hover {
 
 }
 
+<<<<<<< HEAD
 .cancel a {
+=======
+.cancel a{
+>>>>>>> 88dea4c453f5e4b3e3ab76d68bde78114d425621
     font-size: 15px;
     color: #222;
     text-decoration: none;
 }
 
+<<<<<<< HEAD
 .cancel a:hover {
+=======
+.cancel a:hover{
+>>>>>>> 88dea4c453f5e4b3e3ab76d68bde78114d425621
     font-size: 15px;
     color: #222;
     text-decoration: underline;
