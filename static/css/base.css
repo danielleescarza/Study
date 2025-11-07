@@ -698,10 +698,13 @@ fieldset {
 .inline-fields.patient {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     gap: 30px;
 }
 
 .inline-fields {
+    color: var(--black-light-color);
+    align-items: center;
     display: flex;
     gap: 30px;
 }
@@ -712,7 +715,10 @@ fieldset {
 }
 
 .radio {
+    display: flex;
+    align-items: center;
     color: var(--black-light-color);
+    gap: 5px;
 }
 
 /* Creation Form */

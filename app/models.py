@@ -22,39 +22,41 @@ class ClinicVisit(models.Model):
 
 class MedicalRecord(models.Model):
     SEX_CHOICES = [
-        ('M', 'Male'),
-        ('F', 'Female'),
+        ("M", "Male"),
+        ("F", "Female"),
     ]
     RESIDENCE_CHOICES = [
-        ('both', 'Both Parents'),
-        ('father', 'Father'),
-        ('mother', 'Mother'),
-        ('guardian', 'Guardian'),
+        ("both", "Both Parents"),
+        ("father", "Father"),
+        ("mother", "Mother"),
+        ("guardian", "Guardian"),
     ]
 
     ILLNESS_CHOICES = [
-        ('none', 'None'),
-        ('diabetes', 'Diabetes'),
-        ('meningitis', 'Meningitis'),
-        ('tuberculosis', 'Tuberculosis'),
-        ('pneumonia', 'Pneumonia'),
-        ('heart_disorder', 'Heart Disorder'),
-        ('urinary_disorder', 'Urinary Disorder'),
-        ('epilepsy', 'Epilepsy'),
-        ('scoliosis', 'Scoliosis'),
-        ('psoriasis', 'Psoriasis'),
-        ('vitiligo', 'Vitiligo'),
-        ('atopic_dermatitis', 'Atopic Dermatitis'),
-        ('impetigo', 'Impetigo'),
-        ('other_illness', 'Other Illness'),
+        ("none", "None"),
+        ("diabetes", "Diabetes"),
+        ("meningitis", "Meningitis"),
+        ("tuberculosis", "Tuberculosis"),
+        ("pneumonia", "Pneumonia"),
+        ("heart_disorder", "Heart Disorder"),
+        ("urinary_disorder", "Urinary Disorder"),
+        ("epilepsy", "Epilepsy"),
+        ("scoliosis", "Scoliosis"),
+        ("psoriasis", "Psoriasis"),
+        ("vitiligo", "Vitiligo"),
+        ("atopic_dermatitis", "Atopic Dermatitis"),
+        ("impetigo", "Impetigo"),
+        ("other_illness", "Other Illness"),
     ]
-    
+
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     date_recorded = models.DateField(default=datetime.date.today)
     birth_date = models.DateField(blank=False, null=True)
     age = models.PositiveBigIntegerField(null=True, blank=False)
     sex = models.CharField(max_length=1, choices=SEX_CHOICES, default="M")
-    residence = models.CharField(max_length=100, choices=RESIDENCE_CHOICES, default="both")
+    residence = models.CharField(
+        max_length=100, choices=RESIDENCE_CHOICES, default="both"
+    )
     # Father's Information
     fathers_name = models.CharField(max_length=100, default="")
     fathers_home_address = models.TextField(default="")
@@ -70,10 +72,16 @@ class MedicalRecord(models.Model):
     medication_allergies = models.TextField(blank=True)
     food_allergies = models.TextField(blank=True)
     other_allergies = models.TextField(blank=True)
-    severeallergic_reaction = models.BooleanField(default=False)
+    severeallergic_reaction = models.CharField(
+        max_length=3, choices=[("yes", "Yes"), ("no", "No")], blank=True, null=True
+    )
     # Asthma
-    asthma_history = models.BooleanField(default=False)
-    carries_inhaler = models.BooleanField(default=False)
+    asthma_history = models.CharField(
+        max_length=3, choices=[("yes", "Yes"), ("no", "No")], blank=True, null=True
+    )
+    carries_inhaler = models.CharField(
+        max_length=3, choices=[("yes", "Yes"), ("no", "No")], blank=True, null=True
+    )
     # Illness
     illness = models.CharField(max_length=100, choices=ILLNESS_CHOICES, default="none")
     illness_age = models.PositiveIntegerField(null=True, blank=True)
@@ -81,25 +89,40 @@ class MedicalRecord(models.Model):
     # Hospitalization Information
     hospitalization_details = models.TextField(blank=True, null=True)
     # Eye Problems
-    wears_eyeglasses_or_contacts = models.BooleanField(default=False)
-    eye_vision_problem = models.BooleanField(default=False)
+    wears_eyeglasses_or_contacts = models.CharField(
+        max_length=3, choices=[("yes", "Yes"), ("no", "No")], blank=True, null=True
+    )
+    eye_vision_problem = models.CharField(
+        max_length=3, choices=[("yes", "Yes"), ("no", "No")], blank=True, null=True
+    )
     eye_vision_description = models.TextField(blank=True, null=True)
     # Ear Problems
-    hearing_problems = models.BooleanField(default=False)
+    hearing_problems = models.CharField(
+        max_length=3, choices=[("yes", "Yes"), ("no", "No")], blank=True, null=True
+    )
     hearing_description = models.TextField(blank=True, null=True)
+    # Signature
+    signature = models.ImageField(
+        upload_to="medical_record_signatures/", blank=True, null=True
+    )
+    verification = models.CharField(
+        max_length=3, choices=[("yes", "Yes"), ("no", "No")], blank=True, null=True
+    )
 
     def __str__(self):
-        return f"{self.first_name} - {self.last_name}"
+        return f"{self.date_recorded} {self.user.first_name} {self.user.last_name} - medical record"
 
 
 class Inventory(models.Model):
     INVENTORY_TYPE_CHOICES = [
-        ('consumable_medicine', 'Consumable Medicine'),
-        ('medical_supply', 'Medical Supply'),
-        ('medical_instrument', 'Medical Instrument')
+        ("consumable_medicine", "Consumable Medicine"),
+        ("medical_supply", "Medical Supply"),
+        ("medical_instrument", "Medical Instrument"),
     ]
 
-    inventory_type = models.CharField(max_length=50, choices=INVENTORY_TYPE_CHOICES, default='consumable_medicine')
+    inventory_type = models.CharField(
+        max_length=50, choices=INVENTORY_TYPE_CHOICES, default="consumable_medicine"
+    )
     description = models.CharField(max_length=255)
     quantity = models.PositiveIntegerField(default=1)
     unit = models.CharField(max_length=255, default="")

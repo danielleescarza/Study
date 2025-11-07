@@ -1,4 +1,4 @@
-// {% extends 'app/base.html' %}
+{% extends 'app/base.html' %}
 {% load static %}
 
 {% block title %}
@@ -24,7 +24,8 @@
                                 <span class="form-title">Add a Medical Record</span>
                                 <span style="color:#707070;">(The informaton on this form will be treated as confidential and will only be shared with school personnel on a need-to-know basis.)</span>
                             </div>
-                            <form method="POST" action="{% url 'medicalrecords_create' %}">
+                            <form method="POST" action="{% url 'medicalrecords_create' %}"
+                                  enctype="multipart/form-data">
                                 {% csrf_token %}
                                 <fieldset>
                                     <legend>Patient Information</legend>
@@ -150,22 +151,21 @@
                                         <textarea class="input-field" id="other_allergies" name="other_allergies"
                                                   placeholder="Other Allergies"></textarea>
                                     </div>
-                                    <div class="input-box">
-                                        <label>Any history of severe allergic reactions or anaphylactic
-                                            reaction?</label>
-                                        <div class="inline-radio">
-                                            <div class="radio">
-                                                <input type="radio" id="severeallergic_reaction_yes"
-                                                       name="severeallergic_reaction" value="yes"/> Yes
-                                            </div>
-                                            <div class="radio">
-                                                <input type="radio" id="severeallergic_reaction_no"
-                                                       name="severeallergic_reaction" value="no"/> No
+                                        <div class="inline-fields">
+                                            <label>Any history of severe allergic reactions or anaphylactic
+                                                reaction?</label>
+                                            <div class="inline-radio">
+                                                <div class="radio">
+                                                    <input type="radio" id="severeallergic_reaction_yes"
+                                                           name="severeallergic_reaction" value="yes"/> Yes
+                                                </div>
+                                                <div class="radio">
+                                                    <input type="radio" id="severeallergic_reaction_no"
+                                                           name="severeallergic_reaction" value="no"/> No
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
 
-                                    <div class="input-box">
                                         <div class="inline-fields">
                                             <label>Any history of asthma?</label>
                                             <div class="inline-radio">
@@ -179,7 +179,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
 
                                     <div class="input-box">
                                         <div class="inline-fields">
@@ -274,28 +273,43 @@
                                                   placeholder="Please give details"></textarea>
                                     </div>
 
-                                    <div class="input-box">
-                                        <div class="inline-fields">
-                                            <label>Any hearing problems?</label>
-                                            <div class="inline-radio">
-                                                <div class="radio">
-                                                    <input type="radio" id="hearing_problems_yes"
-                                                           name="hearing_problems" value="yes"/> Yes
-                                                </div>
-                                                <div class="radio">
-                                                    <input type="radio" id="hearing_problems_no"
-                                                           name="hearing_problems" value="no"/> No
-                                                </div>
+                                    <div class="inline-fields">
+                                        <label>Any hearing problems?</label>
+                                        <div class="inline-radio">
+                                            <div class="radio">
+                                                <input type="radio" id="hearing_problems_yes"
+                                                       name="hearing_problems" value="yes"/> Yes
+                                            </div>
+                                            <div class="radio">
+                                                <input type="radio" id="hearing_problems_no"
+                                                       name="hearing_problems" value="no"/> No
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="input-box">
-                                        <label for="hearing_description">Hearing Probleem Description</label>
+                                        <label for="hearing_description">Hearing Problem Description</label>
                                         <textarea class="input-field" id="hearing_description"
                                                   name="hearing_description"
                                                   placeholder="Please give details"></textarea>
                                     </div>
+
+                                    <div class="inline-fields">
+                                        <label for="signature">Upload E-Signature</label>
+                                        <input type="file" class="input-field" id="signature" name="signature"
+                                               accept="image/*"/>
+                                    </div>
+
+
+                                    <div class="radio">
+                                        <br><br><br><br><br><br>
+                                        <input type="radio" id="verification_yes" name="verification" value="yes"
+                                               required/>
+                                        <label for="verification">I verify that all information provided in this
+                                            form is
+                                            complete and correct.</label>
+                                    </div>
+
                                 </fieldset>
 
                                 <div class="input-submit">

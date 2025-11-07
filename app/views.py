@@ -136,6 +136,7 @@ class MedicalRecordDetailView(DetailView):
 class MedicalRecordCreateView(CreateView):
     model = MedicalRecord
     fields = [
+        "user",
         "date_recorded",
         "birth_date",
         "age",
@@ -274,8 +275,3 @@ class InventoryDeleteView(DeleteView):
     model = Inventory
     template_name = "app/inventory_delete.html"
     success_url = reverse_lazy("inventory")
-
-
-class MedicalRecordListView(ListView):
-    model = MedicalRecord
-    template_name = "app/medicalrecord_list.html"
