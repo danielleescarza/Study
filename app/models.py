@@ -106,7 +106,7 @@ class MedicalRecord(models.Model):
         upload_to="medical_record_signatures/", blank=True, null=True
     )
     verification = models.CharField(
-        max_length=3, choices=[("yes", "Yes"), ("no", "No")], blank=True, null=True
+        max_length=3, choices=[("yes", "Yes")], blank=True, null=True
     )
 
     def __str__(self):

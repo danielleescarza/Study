@@ -288,7 +288,7 @@ nav .menu-items {
 
 
 nav.close li a .link-name,
-nav.close li .logout span.link-name {
+nav.close li form .logout button .link-name {
     opacity: 0;
     pointer-events: none;
 }

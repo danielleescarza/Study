@@ -165,6 +165,8 @@ class MedicalRecordCreateView(CreateView):
         "eye_vision_description",
         "hearing_problems",
         "hearing_description",
+        "signature",
+        "verification",
     ]
     template_name = "app/medicalrecord_create.html"
     success_url = reverse_lazy("medicalrecords")
@@ -206,6 +208,8 @@ class MedicalRecordUpdateView(UpdateView):
         "eye_vision_description",
         "hearing_problems",
         "hearing_description",
+        "signature",
+        "verification",
     ]
     template_name = "app/medicalrecord_update.html"
     success_url = reverse_lazy("medicalrecords")
