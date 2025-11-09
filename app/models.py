@@ -101,6 +101,11 @@ class MedicalRecord(models.Model):
         max_length=3, choices=[("yes", "Yes"), ("no", "No")], blank=True, null=True
     )
     hearing_description = models.TextField(blank=True, null=True)
+    # Permission
+    permission = models.CharField(
+        max_length=3, choices=[("yes", "Yes")], blank=True, null=True
+    )
+    exception = models.TextField(blank=True, null=True)
     # Signature
     signature = models.ImageField(
         upload_to="medical_record_signatures/", blank=True, null=True

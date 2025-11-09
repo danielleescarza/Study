@@ -165,6 +165,8 @@ class MedicalRecordCreateView(CreateView):
         "eye_vision_description",
         "hearing_problems",
         "hearing_description",
+        "permission",
+        "exception",
         "signature",
         "verification",
     ]
@@ -208,6 +210,8 @@ class MedicalRecordUpdateView(UpdateView):
         "eye_vision_description",
         "hearing_problems",
         "hearing_description",
+        "exception",
+        "signature",
         "signature",
         "verification",
     ]

@@ -1,34 +1,81 @@
 {% extends 'app/base.html' %}
 
 {% block title %}
-  Dashboard
+    School Clinic
 {% endblock %}
 
 {% block content %}
-  {% if user.is_authenticated %}
-    <div class="dash-content">
-      <div class="overview">
-        <div class="title">
-          <span class="text">Dashboard</span>
+    {% if user.is_superuser %}
+        <div class="dash-content">
+            <div class="overview">
+                <div class="title">
+                    <span class="text">Dashboard</span>
+                </div>
+                <div class="boxes">
+                    <div class="box box1">
+                        <i class="uil uil-clinic-medical"></i>
+                        <span class="text">Clinic Visits Today: {{ current_date }}</span>
+                        <span class="number">{{ visit_count }}</span>
+                    </div>
+                    <div class="box box2">
+                        <i class="uis uil-capsule"></i>
+                        <span class="text">Near-expiry Medicines</span>
+                        <span class="number">{{ near_expiration_count }}</span>
+                    </div>
+                    <div class="box box2">
+                        <i class="uil uil-users-alt"></i>
+                        <span class="text">Active Accounts</span>
+                        <span class="number">{{ total_users }}</span>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="boxes">
-          <div class="box box1">
-            <i class="uil uil-clinic-medical"></i>
-            <span class="text">Clinic Visits Today: {{ current_date }}</span>
-            <span class="number">{{ visit_count }}</span>
-          </div>
-          <div class="box box2">
-            <i class="uis uil-capsule"></i>
-            <span class="text">Near-expiry Medicines</span>
-            <span class="number">{{ near_expiration_count }}</span>
-          </div>
-          <div class="box box2">
-            <i class="uil uil-users-alt"></i>
-            <span class="text">Active Accounts</span>
-            <span class="number">{{ total_users }}</span>
-          </div>
+    {% elif user.is_staff %}
+        <div class="dash-content">
+            <div class="overview">
+                <div class="title">
+                    <a href="{% url 'dashboard' %}"><span class="text">Dashboard</span></a><i
+                        class="uil uil-angle-right-b"></i>
+                    <span class="text">{{ user.first_name }} {{ user.last_name }}</span>
+                </div>
+                <div class="table_box">
+                    <div class="table_container">
+                        <div class="create_body">
+                            <div class="create">
+                                <div class="title medical_record">
+                                    <span class="form-title">Welcome to the Website of St. Jude College Dasmariñas Cavite Inc. School Clinic!</span>
+                                    <span style="color:#707070;">(The informaton on this form will be treated as confidential and will only be shared with school personnel on a need-to-know basis.)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  {% endif %}
+    {% else %}
+        <div class="dash-content">
+            <div class="overview">
+                <div class="title">
+                    <span class="text">Dashboard</span>
+                </div>
+                <div class="boxes">
+                    <div class="box box1">
+                        <i class="uil uil-clinic-medical"></i>
+                        <span class="text">Clinic Visits Today: {{ current_date }}</span>
+                        <span class="number">{{ visit_count }}</span>
+                    </div>
+                    <div class="box box2">
+                        <i class="uis uil-capsule"></i>
+                        <span class="text">Near-expiry Medicines</span>
+                        <span class="number">{{ near_expiration_count }}</span>
+                    </div>
+                    <div class="box box2">
+                        <i class="uil uil-users-alt"></i>
+                        <span class="text">Active Accounts</span>
+                        <span class="number">{{ total_users }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
 {% endblock %}

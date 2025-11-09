@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block content %}
-    {% if user.is_authenticated %}
+    {% if user.is_superuser %}
         <div class="dash-content">
             <div class="overview">
                 <div class="title">
@@ -62,5 +62,476 @@
                 </div>
             </div>
         </div>
+
+    {% elif user.is_staff %}
+        {% for medicalrecord in medicalrecords %}
+            <div class="dash-content">
+                <div class="overview">
+                    <div class="title">
+                        <a href="{% url 'medicalrecords' %}"><span class="text">Medical Record</span></a><i
+                            class="uil uil-angle-right-b"></i>
+                        <span class="text">{{ user.first_name }} {{ user.last_name }}</span>
+                    </div>
+                    <div class="table_box">
+                        <div class="table_container">
+                            <div class="create_body medical_record">
+                                <div class="create">
+                                    <div class="title medical_record">
+                                        <span class="form-title">Medical Record</span>
+                                        <span style="color:#707070;">(The informaton on this form will be treated as confidential and will only be shared with school personnel on a need-to-know basis.)</span>
+                                    </div>
+                                    <form method="POST" action="{% url 'medicalrecords_update' medicalrecord.id %}"
+                                          enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        <fieldset>
+                                            <legend>Patient Information</legend>
+                                            <div class="input-box">
+                                                <label for="user_name">Patient</label>
+                                                <input type="text" class="input-field" id="user_name" name="user_name"
+                                                       value="{{ user.first_name }} {{ user.last_name }}" readonly/>
+                                                <input type="hidden" id="user" name="user" value="{{ user.id }}"
+                                                       required/>
+                                            </div>
+
+                                            <div class="input-box">
+                                                <label for="date_recorded">Date Recorded</label>
+                                                <input type="date" class="input-field" id="date_recorded"
+                                                       name="date_recorded"
+                                                       value="{{ medicalrecord.date_recorded|date:'Y-m-d' }}" required/>
+                                            </div>
+                                            <div class="inline-fields patient">
+                                                <div class="input-box">
+                                                    <label for="birth_date">Birth Date</label>
+                                                    <input type="date" class="input-field" id="birth_date"
+                                                           name="birth_date"
+                                                           value="{{ medicalrecord.birth_date|date:'Y-m-d' }}"
+                                                           required/>
+                                                </div>
+                                                <div class="input-box">
+                                                    <label for="age">Age</label>
+                                                    <input type="number" class="input-field" id="age" name="age"
+                                                           placeholder="Age" value="{{ medicalrecord.age }}" required/>
+                                                </div>
+                                                <div class="input-box">
+                                                    <label for="sex">Sex</label>
+                                                    <select id="sex" name="sex" class="input-field" required>
+                                                        <option value="" disabled>Select sex</option>
+                                                        <option value="M"
+                                                                {% if medicalrecord.sex == 'M' %}selected{% endif %}>
+                                                            Male
+                                                        </option>
+                                                        <option value="F"
+                                                                {% if medicalrecord.sex == 'F' %}selected{% endif %}>
+                                                            Female
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="input-box">
+                                                <label for="residence">Residing with</label>
+                                                <select id="residence" name="residence" class="input-field" required>
+                                                    <option value="" disabled>Select residence</option>
+                                                    <option value="both"
+                                                            {% if medicalrecord.residence == 'both' %}selected{% endif %}>
+                                                        Both Parents
+                                                    </option>
+                                                    <option value="father"
+                                                            {% if medicalrecord.residence == 'father' %}selected{% endif %}>
+                                                        Father
+                                                    </option>
+                                                    <option value="mother"
+                                                            {% if medicalrecord.residence == 'mother' %}selected{% endif %}>
+                                                        Mother
+                                                    </option>
+                                                    <option value="guardian"
+                                                            {% if medicalrecord.residence == 'guardian' %}selected{% endif %}>
+                                                        Guardian
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </fieldset>
+
+                                        <fieldset>
+                                            <legend>Parents Information</legend>
+                                            <div class="input-box">
+                                                <label for="fathers_name">Father's Name</label>
+                                                <input type="text" class="input-field" id="fathers_name"
+                                                       name="fathers_name"
+                                                       placeholder="Father's Name"
+                                                       value="{{ medicalrecord.fathers_name }}"/>
+                                            </div>
+
+                                            <div class="input-box">
+                                                <label for="fathers_home_address">Father's Home Address</label>
+                                                <textarea class="input-field" id="fathers_home_address"
+                                                          name="fathers_home_address"
+                                                          placeholder="Father's Home Address">{{ medicalrecord.fathers_home_address }}</textarea>
+                                            </div>
+                                            <div class="input-box">
+                                                <label for="fathers_contact_number">Father's Contact Number</label>
+                                                <input type="text" class="input-field" id="fathers_contact_number"
+                                                       name="fathers_contact_number"
+                                                       placeholder="Father's Contact Number"
+                                                       value="{{ medicalrecord.fathers_contact_number }}"/>
+                                            </div>
+
+                                            <div class="input-box">
+                                                <label for="mothers_name">Mother's Name</label>
+                                                <input type="text" class="input-field" id="mothers_name"
+                                                       name="mothers_name"
+                                                       placeholder="Mother's Name"
+                                                       value="{{ medicalrecord.mothers_name }}"/>
+                                            </div>
+                                            <div class="input-box">
+                                                <label for="mothers_home_address">Mother's Home Address</label>
+                                                <textarea class="input-field" id="mothers_home_address"
+                                                          name="mothers_home_address"
+                                                          placeholder="Mother's Home Address">{{ medicalrecord.mothers_home_address }}</textarea>
+                                            </div>
+                                            <div class="input-box">
+                                                <label for="mothers_contact_number">Mother's Contact Number</label>
+                                                <input type="text" class="input-field" id="mothers_contact_number"
+                                                       name="mothers_contact_number"
+                                                       placeholder="Mother's Contact Number"
+                                                       value="{{ medicalrecord.mothers_contact_number }}"/>
+                                            </div>
+                                        </fieldset>
+
+                                        <fieldset>
+                                            <legend>Primary Contact's Information (If parents cannot be reached)
+                                            </legend>
+                                            <div class="input-box">
+                                                <label for="primarycontact_name">Primary Contact Name</label>
+                                                <input type="text" class="input-field" id="primarycontact_name"
+                                                       name="primarycontact_name" placeholder="Primary Contact Name"
+                                                       value="{{ medicalrecord.primarycontact_name }}"/>
+                                            </div>
+                                            <div class="input-box">
+                                                <label for="primarycontact_number">Primary Contact Number</label>
+                                                <input type="text" class="input-field" id="primarycontact_number"
+                                                       name="primarycontact_number" placeholder="Primary Contact Number"
+                                                       value="{{ medicalrecord.primarycontact_number }}"/>
+                                            </div>
+                                        </fieldset>
+
+                                        <fieldset>
+                                            <legend>Health History</legend>
+                                            <div class="input-box">
+                                                <label for="medication_allergies">Any medication allergies?</label>
+                                                <textarea class="input-field" id="medication_allergies"
+                                                          name="medication_allergies"
+                                                          placeholder="Medication Allergies">{{ medicalrecord.medication_allergies }}</textarea>
+                                            </div>
+                                            <div class="input-box">
+                                                <label for="food_allergies">Any food allergies?</label>
+                                                <textarea class="input-field" id="food_allergies" name="food_allergies"
+                                                          placeholder="Food Allergies">{{ medicalrecord.food_allergies }}</textarea>
+                                            </div>
+                                            <div class="input-box">
+                                                <label for="other_allergies">Other Allergies:</label>
+                                                <textarea class="input-field" id="other_allergies"
+                                                          name="other_allergies"
+                                                          placeholder="Other Allergies">{{ medicalrecord.other_allergies }}</textarea>
+                                            </div>
+                                            <div class="inline-fields">
+                                                <label>Any history of severe allergic reactions or anaphylactic
+                                                    reaction?</label>
+                                                <div class="inline-radio">
+                                                    <div class="radio">
+                                                        <input type="radio" id="severeallergic_reaction_yes"
+                                                               name="severeallergic_reaction" value="yes"
+                                                               {% if medicalrecord.severeallergic_reaction == 'yes' %}checked{% endif %}/>
+                                                        Yes
+                                                    </div>
+                                                    <div class="radio">
+                                                        <input type="radio" id="severeallergic_reaction_no"
+                                                               name="severeallergic_reaction" value="no"
+                                                               {% if medicalrecord.severeallergic_reaction == 'no' %}checked{% endif %}/>
+                                                        No
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="inline-fields">
+                                                <label>Any history of asthma?</label>
+                                                <div class="inline-radio">
+                                                    <div class="radio">
+                                                        <input type="radio" id="asthma_history_yes"
+                                                               name="asthma_history" value="yes"
+                                                               {% if medicalrecord.asthma_history == 'yes' %}checked{% endif %}/>
+                                                        Yes
+                                                    </div>
+                                                    <div class="radio">
+                                                        <input type="radio" id="asthma_history_no"
+                                                               name="asthma_history" value="no"
+                                                               {% if medicalrecord.asthma_history == 'no' %}checked{% endif %}/>
+                                                        No
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="input-box">
+                                                <div class="inline-fields">
+                                                    <label>Do you carry an asthma inhaler?</label>
+                                                    <div class="inline-radio">
+                                                        <div class="radio">
+                                                            <input type="radio" id="carries_inhaler_yes"
+                                                                   name="carries_inhaler" value="yes"
+                                                                   {% if medicalrecord.carries_inhaler == 'yes' %}checked{% endif %}/>
+                                                            Yes
+                                                        </div>
+                                                        <div class="radio">
+                                                            <input type="radio" id="carries_inhaler_no"
+                                                                   name="carries_inhaler" value="no"
+                                                                   {% if medicalrecord.carries_inhaler == 'no' %}checked{% endif %}/>
+                                                            No
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="input-box">
+                                                <label for="illness">Any illness?</label>
+                                                <select id="illness" name="illness" class="input-field" required>
+                                                    <option value="none"
+                                                            {% if medicalrecord.illness == 'none' %}selected{% endif %}>
+                                                        None
+                                                    </option>
+                                                    <option value="diabetes"
+                                                            {% if medicalrecord.illness == 'diabetes' %}selected{% endif %}>
+                                                        Diabetes
+                                                    </option>
+                                                    <option value="meningitis"
+                                                            {% if medicalrecord.illness == 'meningitis' %}selected{% endif %}>
+                                                        Meningitis
+                                                    </option>
+                                                    <option value="tuberculosis"
+                                                            {% if medicalrecord.illness == 'tuberculosis' %}selected{% endif %}>
+                                                        Tuberculosis
+                                                    </option>
+                                                    <option value="pneumonia"
+                                                            {% if medicalrecord.illness == 'pneumonia' %}selected{% endif %}>
+                                                        Pneumonia
+                                                    </option>
+                                                    <option value="heart_disorder"
+                                                            {% if medicalrecord.illness == 'heart_disorder' %}selected{% endif %}>
+                                                        Heart Disorder
+                                                    </option>
+                                                    <option value="urinary_disorder"
+                                                            {% if medicalrecord.illness == 'urinary_disorder' %}selected{% endif %}>
+                                                        Urinary Disorder
+                                                    </option>
+                                                    <option value="epilepsy"
+                                                            {% if medicalrecord.illness == 'epilepsy' %}selected{% endif %}>
+                                                        Epilepsy
+                                                    </option>
+                                                    <option value="scoliosis"
+                                                            {% if medicalrecord.illness == 'scoliosis' %}selected{% endif %}>
+                                                        Scoliosis
+                                                    </option>
+                                                    <option value="psoriasis"
+                                                            {% if medicalrecord.illness == 'psoriasis' %}selected{% endif %}>
+                                                        Psoriasis
+                                                    </option>
+                                                    <option value="vitiligo"
+                                                            {% if medicalrecord.illness == 'vitiligo' %}selected{% endif %}>
+                                                        Vitiligo
+                                                    </option>
+                                                    <option value="atopic_dermatitis"
+                                                            {% if medicalrecord.illness == 'atopic_dermatitis' %}selected{% endif %}>
+                                                        Atopic Dermatitis
+                                                    </option>
+                                                    <option value="impetigo"
+                                                            {% if medicalrecord.illness == 'impetigo' %}selected{% endif %}>
+                                                        Impetigo
+                                                    </option>
+                                                    <option value="other_illness"
+                                                            {% if medicalrecord.illness == 'other_illness' %}selected{% endif %}>
+                                                        Other Illness
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <div class="input-box">
+                                                <label for="illness_age">Age when Diagnosed</label>
+                                                <input type="number" class="input-field" id="illness_age"
+                                                       name="illness_age" placeholder="Age when Diagnosed"
+                                                       value="{{ medicalrecord.illness_age }}"/>
+                                            </div>
+                                            <div class="input-box">
+                                                <label for="other_illness">Other Illness:</label>
+                                                <textarea class="input-field" id="other_illness" name="other_illness"
+                                                          placeholder="Other Illness">{{ medicalrecord.other_illness }}</textarea>
+                                            </div>
+
+                                            <div class="input-box">
+                                                <label for="hospitalization_details">Any hospitalization or serious
+                                                    injuries/illness?</label>
+                                                <textarea class="input-field" id="hospitalization_details"
+                                                          name="hospitalization_details"
+                                                          placeholder="Hospitalization Details">{{ medicalrecord.hospitalization_details }}</textarea>
+                                            </div>
+
+                                            <div class="input-box">
+                                                <div class="inline-fields">
+                                                    <label>Do you wear eyeglasses or contact lenses?</label>
+                                                    <div class="inline-radio">
+                                                        <div class="radio">
+                                                            <input type="radio" id="wears_eyeglasses_or_contacts_yes"
+                                                                   name="wears_eyeglasses_or_contacts" value="yes"
+                                                                   {% if medicalrecord.wears_eyeglasses_or_contacts == 'yes' %}checked{% endif %}/>
+                                                            Yes
+                                                        </div>
+                                                        <div class="radio">
+                                                            <input type="radio" id="wears_eyeglasses_or_contacts_no"
+                                                                   name="wears_eyeglasses_or_contacts" value="no"
+                                                                   {% if medicalrecord.wears_eyeglasses_or_contacts == 'no' %}checked{% endif %}/>
+                                                            No
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="input-box">
+                                                <div class="inline-fields">
+                                                    <label>Any eye or vision problems?</label>
+                                                    <div class="inline-radio">
+                                                        <div class="radio">
+                                                            <input type="radio" id="eye_vision_problem_yes"
+                                                                   name="eye_vision_problem" value="yes"
+                                                                   {% if medicalrecord.eye_vision_problem == 'yes' %}checked{% endif %}/>
+                                                            Yes
+                                                        </div>
+                                                        <div class="radio">
+                                                            <input type="radio" id="eye_vision_problem_no"
+                                                                   name="eye_vision_problem" value="no"
+                                                                   {% if medicalrecord.eye_vision_problem == 'no' %}checked{% endif %}/>
+                                                            No
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="input-box">
+                                                <label for="eye_vision_description">Eye or Vision Problem
+                                                    Description</label>
+                                                <textarea class="input-field" id="eye_vision_description"
+                                                          name="eye_vision_description"
+                                                          placeholder="Please give details">{{ medicalrecord.eye_vision_description }}</textarea>
+                                            </div>
+
+                                            <div class="inline-fields">
+                                                <label>Any hearing problems?</label>
+                                                <div class="inline-radio">
+                                                    <div class="radio">
+                                                        <input type="radio" id="hearing_problems_yes"
+                                                               name="hearing_problems" value="yes"
+                                                               {% if medicalrecord.hearing_problems == 'yes' %}checked{% endif %}/>
+                                                        Yes
+                                                    </div>
+                                                    <div class="radio">
+                                                        <input type="radio" id="hearing_problems_no"
+                                                               name="hearing_problems" value="no"
+                                                               {% if medicalrecord.hearing_problems == 'no' %}checked{% endif %}/>
+                                                        No
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="input-box">
+                                                <label for="hearing_description">Hearing Problem Description</label>
+                                                <textarea class="input-field" id="hearing_description"
+                                                          name="hearing_description"
+                                                          placeholder="Please give details">{{ medicalrecord.hearing_description }}</textarea>
+                                            </div>
+
+                                            <div class="inline-fields">
+                                                <label for="signature">Upload E-Signature</label>
+                                                <input type="file" class="input-field" id="signature" name="signature"
+                                                       accept="image/*"/>
+                                            </div>
+
+
+                                            <div class="radio">
+                                                <br><br><br><br><br><br>
+                                                <input type="radio" id="verification_yes" name="verification"
+                                                       value="yes"
+                                                       {% if medicalrecord.verification == 'yes' %}checked{% endif %}
+                                                       required/>
+                                                <label for="verification">I verify that all information provided in this
+                                                    form is
+                                                    complete and correct.</label>
+                                            </div>
+
+                                        </fieldset>
+
+                                        <div class="input-group">
+                                            <div class="input-submit">
+                                                <button class="submit-btn" type="submit"><label>Save changes</label>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        {{ form.errors }}
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    const userNameInput = document.getElementById('user_name')
+                    const userIdInput = document.getElementById('user')
+                    const dataList = document.getElementById('user-options')
+
+                    userNameInput.addEventListener('input', function () {
+                        const value = userNameInput.value
+                        let userId = ''
+
+                        // Loop through the datalist options to find a match
+                        for (let option of dataList.options) {
+                            if (option.value === value) {
+                                userId = option.getAttribute('data-userid')
+                                break
+                            }
+                        }
+
+                        // Set the hidden input value to the user ID or reset if no match
+                        userIdInput.value = userId || ''
+                    })
+                })
+            </script>
+        {% empty %}
+            <div class="dash-content">
+                <div class="overview">
+                    <div class="title">
+                        <a href="{% url 'medicalrecords' %}"><span class="text">Medical Record</span></a><i
+                            class="uil uil-angle-right-b"></i>
+                        <span class="text">{{ user.first_name }} {{ user.last_name }}</span>
+                    </div>
+                    <div class="table_box">
+                        <div class="table_container">
+                            <div class="create_body">
+                                <div class="create">
+                                    <div class="clinicvisit-btn">
+                                        <a href="{% url 'medicalrecords_create' %}" class="signup">
+                                            ADD A MEDICAL RECORD
+                                            <div class="arrow-wrapper">
+                                                <div class="arrow"></div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="title medical_record">
+                                        <span class="form-title">There are no records.</span>
+                                        <span style="color:#707070;">(Please fill up your medical record form soon.)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
     {% endif %}
 {% endblock %}

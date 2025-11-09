@@ -29,5 +29,5 @@ class MedicalRecordForm(forms.ModelForm):
             'illness', 'illness_age', 'other_illness',
             'hospitalization_details',
             'wears_eyeglasses_or_contacts', 'eye_vision_problem', 'eye_vision_description',
-            'hearing_problems', 'hearing_description', 'signature','verification'
+            'hearing_problems', 'hearing_description', 'permission', 'exception', 'signature', 'verification'
         ]

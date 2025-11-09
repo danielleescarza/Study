@@ -1,126 +1,127 @@
 {% load static %}
 
 {% if user.is_superuser %}
-  <nav>
-    <div class="logo-name">
-      <div class="logo-image">
-        <img src="{% static 'images/sjcdc_logo.png' %}" alt="" />
-      </div>
-      <span class="logo_name">St. Jude College Dasmariñas Cavite Inc. School Clinic</span>
-    </div>
-    <div class="menu-items">
-      <ul class="nav-links">
-        <li>
-          <a href="{% url 'dashboard' %}">
-            <i class="uil uil-estate"></i>
-            <span class="link-name">Dashboard</span>
-          </a>
-        </li>
-        <li>
-          <a href="{% url 'clinicvisits' %}">
-            <i class="uil uil-book"></i>
-            <span class="link-name">Clinic Visit</span>
-          </a>
-        </li>
-        <li>
-          <a href="{% url 'medicalrecords' %}">
-            <i class="uil uil-clipboard-notes"></i>
-            <span class="link-name">Medical Record</span>
-          </a>
-        </li>
-        <li>
-          <a href="{% url 'inventory' %}">
-            <i class="uil uil-box"></i>
-            <span class="link-name">Inventory</span>
-          </a>
-        </li>
-        <li>
-          <a href="{% url 'create' %}">
-            <i class="uil uil-user"></i>
-            <span class="link-name">Accounts</span>
-          </a>
-        </li>
-      </ul>
-      <ul class="logout-mode">
-        <li>
-          <form method="post" action="{% url 'logout' %}">
-            {% csrf_token %}
-            <div class="logout">
-              <button class="link-name" type="submit"><i class="uil uil-signout"></i>Log out</button>
+    <nav>
+        <div class="logo-name">
+            <div class="logo-image">
+                <img src="{% static 'images/sjcdc_logo.png' %}" alt=""/>
             </div>
-          </form>
-        </li>
-      </ul>
-    </div>
-  </nav>
+            <span class="logo_name">St. Jude College Dasmariñas Cavite Inc. School Clinic</span>
+        </div>
+        <div class="menu-items">
+            <ul class="nav-links">
+                <li>
+                    <a href="{% url 'dashboard' %}">
+                        <i class="uil uil-estate"></i>
+                        <span class="link-name">Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'clinicvisits' %}">
+                        <i class="uil uil-book"></i>
+                        <span class="link-name">Clinic Visit</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'medicalrecords' %}">
+                        <i class="uil uil-clipboard-notes"></i>
+                        <span class="link-name">Medical Record</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'inventory' %}">
+                        <i class="uil uil-box"></i>
+                        <span class="link-name">Inventory</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'create' %}">
+                        <i class="uil uil-user"></i>
+                        <span class="link-name">Accounts</span>
+                    </a>
+                </li>
+            </ul>
+            <ul class="logout-mode">
+                <li>
+                    <form method="post" action="{% url 'logout' %}">
+                        {% csrf_token %}
+                        <div class="logout">
+                            <button class="link-name" type="submit"><i class="uil uil-signout"></i>Log out</button>
+                        </div>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </nav>
 {% elif user.is_staff %}
-  <nav>
-    <div class="logo-name">
-      <div class="logo-image">
-        <img src="{% static 'images/sjcdc_logo.png' %}" alt="" />
-      </div>
-      <span class="logo_name">St. Jude College Dasmariñas Cavite Inc. School Clinic</span>
-    </div>
-    <div class="menu-items">
-      <ul class="nav-links">
-        <li>
-          <a href="{% url 'dashboard' %}">
-            <i class="uil uil-estate"></i>
-            <span class="link-name">Dashboard</span>
-          </a>
-        </li>
-        <li>
-          <a href="{% url 'medicalrecords' %}">
-            <i class="uil uil-clipboard-notes"></i>
-            <span class="link-name">Medical Record</span>
-          </a>
-        </li>
-      </ul>
-      <ul class="logout-mode">
-        <li>
-          <form method="post" action="{% url 'logout' %}">
-            {% csrf_token %}
-            <div class="logout">
-              <button class="link-name" type="submit"><i class="uil uil-signout"></i> Log out</button>
+    <nav>
+        <div class="logo-name">
+            <div class="logo-image">
+                <img src="{% static 'images/sjcdc_logo.png' %}" alt=""/>
             </div>
-          </form>
-        </li>
-      </ul>
-    </div>
-  </nav>
+            <span class="logo_name">St. Jude College Dasmariñas Cavite Inc. School Clinic</span>
+        </div>
+        <div class="menu-items">
+            <ul class="nav-links">
+                <li>
+                    <a href="{% url 'dashboard' %}">
+                        <i class="uil uil-estate"></i>
+                        <span class="link-name">Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'medicalrecords' %}">
+                        <i class="uil uil-clipboard-notes"></i>
+                        <span class="link-name">Medical Record</span>
+                    </a>
+                </li>
+            </ul>
+            <ul class="logout-mode">
+                <li>
+                    <form method="post" action="{% url 'logout' %}">
+                        {% csrf_token %}
+                        <div class="logout">
+                            <button class="link-name" type="submit"><i class="uil uil-signout"></i> Log out</button>
+                        </div>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </nav>
 {% else %}
-  <nav>
-    <div class="logo-name">
-      <div class="logo-image">
-        <img src="{% static 'images/sjcdc_logo.png' %}" alt="" />
-      </div>
-      <span class="logo_name">St. Jude College Dasmariñas Cavite Inc. School Clinic</span>
-    </div>
-    <div class="menu-items">
-      <ul class="nav-links">
-        <li>
-          <a href="{% url 'dashboard' %}">
-            <i class="uil uil-estate"></i>
-            <span class="link-name">Dashboard</span>
-          </a>
-        </li>
-        <li>
-          <a href="{% url 'medicalrecords' %}">
-            <i class="uil uil-clipboard-notes"></i>
-            <span class="link-name">Medical Record</span>
-          </a>
-        </li>
-      </ul>
-      <ul class="logout-mode">
-        <li>
-          <form method="post" action="{% url 'logout' %}">
-            {% csrf_token %}
-            <div class="logout">
-              <button class="link-name" type="submit"><i class="uil uil-signout"></i><span class="link-name">Log out</span></button>
+    <nav>
+        <div class="logo-name">
+            <div class="logo-image">
+                <img src="{% static 'images/sjcdc_logo.png' %}" alt=""/>
             </div>
-          </form>
-        </li>
-      </ul>
-    </div>
-  </nav>
+            <span class="logo_name">St. Jude College Dasmariñas Cavite Inc. School Clinic</span>
+        </div>
+        <div class="menu-items">
+            <ul class="nav-links">
+                <li>
+                    <a href="{% url 'dashboard' %}">
+                        <i class="uil uil-estate"></i>
+                        <span class="link-name">Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'medicalrecords' %}">
+                        <i class="uil uil-clipboard-notes"></i>
+                        <span class="link-name">Medical Record</span>
+                    </a>
+                </li>
+            </ul>
+            <ul class="logout-mode">
+                <li>
+                    <form method="post" action="{% url 'logout' %}">
+                        {% csrf_token %}
+                        <div class="logout">
+                            <button class="link-name" type="submit"><i class="uil uil-signout"></i><span
+                                    class="link-name">Log out</span></button>
+                        </div>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </nav>
 {% endif %}

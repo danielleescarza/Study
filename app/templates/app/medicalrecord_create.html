@@ -29,21 +29,31 @@
                                 {% csrf_token %}
                                 <fieldset>
                                     <legend>Patient Information</legend>
-                                    <div class="input-box">
-                                        <label for="user_name">Patient</label>
-                                        <input list="user-options" id="user_name" name="user_name" class="input-field"
-                                               placeholder="Select patient" autocomplete="off" required/>
-                                        <datalist id="user-options">
-                                            {% for user in users %}
-                                                <option data-userid="{{ user.id }}"
-                                                        value="{{ user.first_name }} {{ user.last_name }}">{{ user.student_number }}</option>
-                                            {% empty %}
-                                                <option value="No users available"></option>
-                                            {% endfor %}
-                                        </datalist>
-                                        <input type="hidden" id="user" name="user" required/>
-                                    </div>
+                                    {% if user.is_superuser %}
+                                        <div class="input-box">
+                                            <label for="user_name">Patient</label>
 
+                                            <input list="user-options" id="user_name" name="user_name"
+                                                   class="input-field"
+                                                   placeholder="Select patient" autocomplete="off" required/>
+                                            <datalist id="user-options">
+                                                {% for user in users %}
+                                                    <option data-userid="{{ user.id }}"
+                                                            value="{{ user.first_name }} {{ user.last_name }}">{{ user.student_number }}</option>
+                                                {% empty %}
+                                                    <option value="No users available"></option>
+                                                {% endfor %}
+                                            </datalist>
+                                            <input type="hidden" id="user" name="user" required/>
+                                        </div>
+                                    {% else %}
+                                        <div class="input-box">
+                                            <label for="user_name">Patient</label>
+                                            <input type="text" class="input-field" id="user_name" name="user_name"
+                                                   value="{{ user.first_name }} {{ user.last_name }}" readonly/>
+                                            <input type="hidden" id="user" name="user" value="{{ user.id }}" required/>
+                                        </div>
+                                    {% endif %}
                                     <div class="input-box">
                                         <label for="date_recorded">Date Recorded</label>
                                         <input type="date" class="input-field" id="date_recorded" name="date_recorded"
@@ -151,34 +161,34 @@
                                         <textarea class="input-field" id="other_allergies" name="other_allergies"
                                                   placeholder="Other Allergies"></textarea>
                                     </div>
-                                        <div class="inline-fields">
-                                            <label>Any history of severe allergic reactions or anaphylactic
-                                                reaction?</label>
-                                            <div class="inline-radio">
-                                                <div class="radio">
-                                                    <input type="radio" id="severeallergic_reaction_yes"
-                                                           name="severeallergic_reaction" value="yes"/> Yes
-                                                </div>
-                                                <div class="radio">
-                                                    <input type="radio" id="severeallergic_reaction_no"
-                                                           name="severeallergic_reaction" value="no"/> No
-                                                </div>
+                                    <div class="inline-fields">
+                                        <label>Any history of severe allergic reactions or anaphylactic
+                                            reaction?</label>
+                                        <div class="inline-radio">
+                                            <div class="radio">
+                                                <input type="radio" id="severeallergic_reaction_yes"
+                                                       name="severeallergic_reaction" value="yes"/> Yes
+                                            </div>
+                                            <div class="radio">
+                                                <input type="radio" id="severeallergic_reaction_no"
+                                                       name="severeallergic_reaction" value="no"/> No
                                             </div>
                                         </div>
+                                    </div>
 
-                                        <div class="inline-fields">
-                                            <label>Any history of asthma?</label>
-                                            <div class="inline-radio">
-                                                <div class="radio">
-                                                    <input type="radio" id="asthma_history_yes"
-                                                           name="asthma_history" value="yes"/> Yes
-                                                </div>
-                                                <div class="radio">
-                                                    <input type="radio" id="asthma_history_no"
-                                                           name="asthma_history" value="no"/> No
-                                                </div>
+                                    <div class="inline-fields">
+                                        <label>Any history of asthma?</label>
+                                        <div class="inline-radio">
+                                            <div class="radio">
+                                                <input type="radio" id="asthma_history_yes"
+                                                       name="asthma_history" value="yes"/> Yes
+                                            </div>
+                                            <div class="radio">
+                                                <input type="radio" id="asthma_history_no"
+                                                       name="asthma_history" value="no"/> No
                                             </div>
                                         </div>
+                                    </div>
 
                                     <div class="input-box">
                                         <div class="inline-fields">
@@ -294,12 +304,43 @@
                                                   placeholder="Please give details"></textarea>
                                     </div>
 
+                                    <div class="input-box">
+                                        <div class="inline-fields">
+                                            <label>(For parents) With your permission, the School Nurse may give the
+                                                medication contacting you first:</label><br>
+                                        </div>
+                                    </div>
+
+                                    <div class="input-box">
+                                        <div class="radio">
+                                            <input type="radio" id="permission_yes"
+                                                   name="permission" value="yes"/>
+                                        </div>
+                                        <label for="exception">Yes, with exceptions:</label>
+                                        <textarea class="input-field" id="exception"
+                                                  name="exception"
+                                                  placeholder="Please give details"></textarea>
+                                    </div>
+
+                                    <div class="input-box">
+                                        <div class="inline-fields">
+                                            <div class="radio">
+                                                <input type="radio" id="permission_no"
+                                                       name="permission" value="no"/> No, I will be the one to
+                                                provide the school with the necessary medication to be given to the
+                                                student as needed.
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <br>
+
                                     <div class="inline-fields">
-                                        <label for="signature">Upload E-Signature</label>
+                                        <label for="signature">Upload E-Signature (Upload parent's signature for
+                                            students.)</label>
                                         <input type="file" class="input-field" id="signature" name="signature"
                                                accept="image/*"/>
                                     </div>
-
 
                                     <div class="radio">
                                         <br><br><br><br><br><br>

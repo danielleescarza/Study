@@ -1,0 +1,119 @@
+{% extends 'app/base.html' %}
+
+{% block title %}
+    Medical Record
+{% endblock %}
+
+{% block content %}
+    <div class="dash-content">
+        <div class="overview">
+            <div class="title">
+                <a href="{% url 'medicalrecords' %}"><span class="text">Medical Record</span></a><i
+                    class="uil uil-angle-right-b"></i>
+                <span class="text">Update</span>
+            </div>
+            <div class="table_box">
+                <div class="back">
+                    <a href="{% url 'medicalrecords' %}">Back <i class="uil uil-angle-right-b"></i></a>
+                </div>
+                <div class="table_container">
+                    <ul class="">
+                        <li>
+                            <h1>{{ medicalrecord.user.first_name }} {{ medicalrecord.user.last_name }}</h1>
+                        </li>
+                        <li>
+                            <span>{{ medicalrecord.date_recorded }}</span>
+                        </li>
+                        <li>
+                            <span>{{ medicalrecord.birth_date }}</span>
+                        </li>
+                        <li>
+                            <span>{{ medicalrecord.age }}</span>
+                        </li>
+                        <li>
+                            <span>{{ medicalrecord.sex }}</span>
+                        </li>
+                        <li>
+                            <span>{{ medicalrecord.residence }}</span>
+                        </li>
+                        <li>
+                            <span>{{ medicalrecord.fathers_name }}</span>
+                        </li>
+                        <li>
+                            <span>{{ medicalrecord.fathers_home_address }}</span>
+                        </li>
+                        <li>
+                            <span>{{ medicalrecord.fathers_contact_number }}</span>
+                        </li>
+                        <li>
+                            <span>{{ medicalrecord.mothers_name }}</span>
+                        </li>
+                        <li>
+                            <span>{{ medicalrecord.mothers_home_address }}</span>
+                        </li>
+                        <li>
+                            <span>{{ medicalrecord.mothers_contact_number }}</span>
+                        </li>
+                        <li>
+                            <span>{{ medicalrecord.primarycontact_name }}</span>
+                        </li>
+                        <li>
+                            <span>{{ medicalrecord.primarycontact_number }}</span>
+                        </li>
+                        <li>
+                            <span>{{ medicalrecord.medication_allergies }}</span>
+                        </li>
+                        <li>
+                            <span>{{ medicalrecord.food_allergies }}</span>
+                        </li>
+                        <li>
+                            <span>{{ medicalrecord.other_allergies }}</span>
+                        </li>
+                        <li>
+                            <span>{{ medicalrecord.severeallergic_reaction }}</span>
+                        </li>
+                        <li>
+                            <span>{{ medicalrecord.asthma_history }}</span>
+                        </li>
+                        <li>
+                            <span>{{ medicalrecord.carries_inhaler }}</span>
+                        </li>
+                        <li>
+                            <span>{{ medicalrecord.illness }}</span>
+                        </li>
+                        <li>
+                            <span>{{ medicalrecord.illness_age }}</span>
+                        </li>
+                        <li>
+                            <span>{{ medicalrecord.other_illness }}</span>
+                        </li>
+                        <li>
+                            <span>{{ medicalrecord.hospitalization_details }}</span>
+                        </li>
+                        <li>
+                            <span>{{ medicalrecord.wears_eyeglasses_or_contacts }}</span>
+                        </li>
+                        <li>
+                            <span>{{ medicalrecord.eye_vision_problem }}</span>
+                        </li>
+                        <li>
+                            <span>{{ medicalrecord.eye_vision_description }}</span>
+                        </li>
+                        <li>
+                            <span>{{ medicalrecord.hearing_problems }}</span>
+                        </li>
+                        <li>
+                            <span>{{ medicalrecord.hearing_description }}</span>
+                        </li>
+                        <li>
+                            <span>{{ medicalrecord.signature }}</span>
+                        </li>
+                        <li>
+                            <span>{{ medicalrecord.verification }}</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

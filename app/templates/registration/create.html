@@ -28,7 +28,7 @@
                     <option value="admin">Admin</option>
                   </select>
                 </div>
-                <div class="input-group">
+                <div class="inline-fields patient">
                   <div class="input-box">
                     <input type="text" class="input-field" id="uid" name="uid" placeholder="Tap ID (Optional)" />
                   </div>
@@ -36,7 +36,7 @@
                     <input type="text" class="input-field" id="student_number" name="student_number" placeholder="Student Number" min="1" required />
                   </div>
                 </div>
-                <div class="input-group">
+                <div class="inline-fields patient">
                   <div class="input-box">
                     <input type="text" class="input-field" id="first_name" name="first_name" placeholder="First Name" required />
                   </div>
@@ -119,14 +119,14 @@
       const levelContainer = document.getElementById('level-container')
       const levelSelect = document.getElementById('level')
       const departmentSelect = document.getElementById('department')
-    
+
       // Reset all fields to default state
       studentNumberInput.placeholder = 'Student Number'
       levelContainer.style.display = 'block' // Show level
       Array.from(departmentSelect.options).forEach((option) => {
         option.style.display = 'block' // Show all options
       })
-    
+
       if (userType === 'employee') {
         studentNumberInput.placeholder = 'Username'
         levelContainer.style.display = 'none' // Hide level
@@ -156,16 +156,16 @@
         })
       }
     }
-    
+
     function updateDepartment() {
       const department = document.getElementById('department').value
       const levelSelect = document.getElementById('level')
-    
+
       // Reset level options
       Array.from(levelSelect.options).forEach((option) => {
         option.style.display = 'block' // Show all initially
       })
-    
+
       if (department === 'BED') {
         // Hide year options for BED
         Array.from(levelSelect.options).forEach((option) => {
@@ -182,7 +182,7 @@
         })
       }
     }
-    
+
     // Initialize form on page load to handle pre-selected values if any
     document.addEventListener('DOMContentLoaded', () => {
       updateForm()
