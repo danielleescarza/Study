@@ -1,4 +1,4 @@
-// {% extends 'app/base.html' %}
+{% extends 'app/base.html' %}
 {% load static %}
 
 {% block title %}
@@ -393,12 +393,41 @@
                                                   placeholder="Please give details">{{ medicalrecord.hearing_description }}</textarea>
                                     </div>
 
+                                    <div class="input-box">
+                                        <div class="inline-fields">
+                                            <label>(For parents) With your permission, the School Nurse may give the
+                                                medication contacting you first:</label><br>
+                                        </div>
+                                    </div>
+
+                                    <div class="input-box">
+                                        <div class="radio">
+                                            <input type="radio" id="permission_yes"
+                                                   name="permission" value="yes"
+                                                   {% if medicalrecord.verification == 'yes' %}checked{% endif %}/>
+                                        </div>
+                                        <label for="exception">Yes, with exceptions:</label>
+                                        <textarea class="input-field" id="exception"
+                                                  name="exception"
+                                                  placeholder="Please give details">{{ medicalrecord.exception }}</textarea>
+                                    </div>
+
+                                    <div class="input-box">
+                                        <div class="inline-fields">
+                                            <div class="radio">
+                                                <input type="radio" id="permission_no"
+                                                       name="permission" value="no" {% if medicalrecord.verification == 'no' %}checked{% endif %}/> No, I will be the one to
+                                                provide the school with the necessary medication to be given to the
+                                                student as needed.
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <div class="inline-fields">
                                         <label for="signature">Upload E-Signature</label>
                                         <input type="file" class="input-field" id="signature" name="signature"
                                                accept="image/*"/>
                                     </div>
-
 
                                     <div class="radio">
                                         <br><br><br><br><br><br>
