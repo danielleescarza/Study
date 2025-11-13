@@ -126,6 +126,27 @@ class MedicalRecordListView(ListView):
     template_name = "app/medicalrecord_list.html"
     ordering = ["-date_recorded"]
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        search_query = self.request.GET.get("search_query", "")
+
+        if search_query:
+            queryset = queryset.filter(
+                Q(user__student_number__icontains=search_query)
+                | Q(user__uid__icontains=search_query)
+                | Q(user__first_name__icontains=search_query)
+                | Q(user__last_name__icontains=search_query)
+                | Q(user__department__icontains=search_query)
+                | Q(user__level__icontains=search_query)
+            ).distinct()
+
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["search_query"] = self.request.GET.get("search_query", "")
+        return context
+
 
 class MedicalRecordDetailView(DetailView):
     model = MedicalRecord
@@ -237,22 +258,22 @@ class InventoryListView(ListView):
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        search_query = self.request.GET.get('search_query', '')
+        search_query = self.request.GET.get("search_query", "")
 
         if search_query:
             queryset = queryset.filter(
-                Q(description__icontains=search_query) |
-                Q(inventory_type__icontains=search_query) |
-                Q(arrival_date__icontains=search_query) |
-                Q(remarks__icontains=search_query) |
-                Q(expiration_date__icontains=search_query)
+                Q(description__icontains=search_query)
+                | Q(inventory_type__icontains=search_query)
+                | Q(arrival_date__icontains=search_query)
+                | Q(remarks__icontains=search_query)
+                | Q(expiration_date__icontains=search_query)
             ).distinct()
 
         return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['search_query'] = self.request.GET.get('search_query', '')
+        context["search_query"] = self.request.GET.get("search_query", "")
         return context
 
 
