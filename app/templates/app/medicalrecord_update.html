@@ -11,7 +11,7 @@
             <div class="title">
                 <a href="{% url 'medicalrecords' %}"><span class="text">Medical Record</span></a><i
                     class="uil uil-angle-right-b"></i>
-                <span class="text">Update a Medical Record</span>
+                <span class="text">Update Medical Record</span>
             </div>
             <div class="table_box">
                 <div class="back">
@@ -21,7 +21,7 @@
                     <div class="create_body medical_record">
                         <div class="create">
                             <div class="title medical_record">
-                                <span class="form-title">Update a Medical Record</span>
+                                <span class="form-title">Update Medical Record</span>
                                 <span style="color:#707070;">(The informaton on this form will be treated as confidential and will only be shared with school personnel on a need-to-know basis.)</span>
                             </div>
                             <form method="POST" action="{% url 'medicalrecords_update' medicalrecord.id %}"
@@ -404,9 +404,9 @@
                                         <div class="radio">
                                             <input type="radio" id="permission_yes"
                                                    name="permission" value="yes"
-                                                   {% if medicalrecord.verification == 'yes' %}checked{% endif %}/>
+                                                   {% if medicalrecord.permission == 'yes' %}checked{% endif %}/>
                                         </div>
-                                        <label for="exception">Yes, with exceptions:</label>
+                                        <label for="exception">Yes, with exception/s:</label>
                                         <textarea class="input-field" id="exception"
                                                   name="exception"
                                                   placeholder="Please give details">{{ medicalrecord.exception }}</textarea>
@@ -416,12 +416,16 @@
                                         <div class="inline-fields">
                                             <div class="radio">
                                                 <input type="radio" id="permission_no"
-                                                       name="permission" value="no" {% if medicalrecord.verification == 'no' %}checked{% endif %}/> No, I will be the one to
+                                                       name="permission" value="no"
+                                                       {% if medicalrecord.permission == 'no' %}checked{% endif %}/>
+                                                No, I will be the one to
                                                 provide the school with the necessary medication to be given to the
                                                 student as needed.
                                             </div>
                                         </div>
                                     </div>
+
+                                    <br>
 
                                     <div class="inline-fields">
                                         <label for="signature">Upload E-Signature</label>

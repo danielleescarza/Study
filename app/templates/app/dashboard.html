@@ -41,28 +41,68 @@
                 <div class="table_box">
                     <div class="table_container">
                         <div class="create_body">
-                            <div class="create">
+                            <div class="create medical_record">
                                 <div class="title medical_record">
                                     <span class="form-title">Welcome to the Website of St. Jude College Dasmariñas Cavite Inc. School Clinic!</span>
-                                    <div class="medication">
-                                        <h3 style="color:#707070;">MEDICATION</h3>
-                                        <h4>For All Ages:</h4>
-                                        <ul class="mul">
-                                            <li>Lozenges (Dequadin) for sore throat</li>
-                                            <li>Liniment (Manzanilla, White Flower, Efficasent) for tummy ache and body
-                                                pain.
-                                            </li>
-                                            <li>Lotion (Caladryl, Calmoseptine) for insect bites.</li>
-                                        </ul>
-                                        <h4>For Grade 6 and Above:</h4>
-                                        <ul class="mul">
-                                            <li>Paracetamol (Biogesic) for headache, fever.</li>
-                                            <li>Buscopan for menstrual cramps.</li>
-                                            <li>Mefenamic Acid for body pain/tooth pain.</li>
-                                            <li>Antihistamine for allergy.</li>
-                                        </ul>
-                                        <h4>Student's Medication:</h4>
-                                        <span>If the student has medication to be given continuously at school (e.g. antibiotics, maintenance medication, etc.) or has medication to be taken as needed or in emergencies (e.g. antihistamines, pain medication, etc.) a prescription or letter from the doctor must be given to the School Nurse together with te medication in its original container.</span>
+
+                                    <div class="two-column-layout">
+                                        <!-- Student Information Column -->
+                                        <div class="column student-info">
+                                            <h3 style="color:#707070;">STUDENT INFORMATION</h3>
+                                            <div class="info-card">
+                                                <div class="info-item">
+                                                    <strong>Name:</strong> {{ user.first_name }} {{ user.last_name }}
+                                                </div>
+                                                <div class="info-item">
+                                                    <strong>Student
+                                                        Number:</strong> {{ user.student_number|default:"Not provided" }}
+                                                </div>
+                                                <div class="info-item">
+                                                    <strong>User Type:</strong> {{ user.get_user_type_display }}
+                                                </div>
+                                                <div class="info-item">
+                                                    <strong>Department:</strong> {{ user.get_department_display|default:"Not provided" }}
+                                                </div>
+                                                <div class="info-item">
+                                                    <strong>Grade/Level:</strong> {{ user.get_level_display|default:"Not provided" }}
+                                                </div>
+                                                <div class="info-item">
+                                                    <strong>Username:</strong> {{ user.username }}
+                                                </div>
+                                                <div class="info-item">
+                                                    <strong>Email:</strong> {{ user.email|default:"Not provided" }}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- School Clinic Information Column -->
+                                        <div class="column clinic-info">
+                                            <h3 style="color:#707070;">SCHOOL CLINIC MEDICATION</h3>
+                                            <div class="medication">
+                                                <h4>For All Ages:</h4>
+                                                <ul class="mul">
+                                                    <li>Lozenges (Dequadin) for sore throat</li>
+                                                    <li>Liniment (Manzanilla, White Flower, Efficasent) for tummy ache
+                                                        and body pain.
+                                                    </li>
+                                                    <li>Lotion (Caladryl, Calmoseptine) for insect bites.</li>
+                                                </ul>
+                                                <h4>For Grade 6 and Above:</h4>
+                                                <ul class="mul">
+                                                    <li>Paracetamol (Biogesic) for headache, fever.</li>
+                                                    <li>Buscopan for menstrual cramps.</li>
+                                                    <li>Mefenamic Acid for body pain/tooth pain.</li>
+                                                    <li>Antihistamine for allergy.</li>
+                                                </ul>
+                                                <h4>Student's Medication:</h4>
+                                                <p>If the student has medication to be given continuously at school
+                                                    (e.g. antibiotics, maintenance medication, etc.) or has medication
+                                                    to be taken as needed or in emergencies (e.g. antihistamines, pain
+                                                    medication, etc.) a prescription or letter from the doctor must be
+                                                    given to the School Nurse together with the medication in its
+                                                    original container.</p>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

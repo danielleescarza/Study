@@ -211,8 +211,7 @@ class MedicalRecordUpdateView(UpdateView):
         "hearing_problems",
         "hearing_description",
         "exception",
-        "signature",
-        "signature",
+        "signature",  # Removed duplicate
         "verification",
     ]
     template_name = "app/medicalrecord_update.html"
@@ -233,8 +232,28 @@ class MedicalRecordDeleteView(DeleteView):
 class InventoryListView(ListView):
     model = Inventory
     context_object_name = "inventorys"
-    template_name = "app/inventory_list.html"
+    template_name = "app/inventory_list.html"  # Make sure this matches your template
     ordering = ["-arrival_date"]
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        search_query = self.request.GET.get('search_query', '')
+
+        if search_query:
+            queryset = queryset.filter(
+                Q(description__icontains=search_query) |
+                Q(inventory_type__icontains=search_query) |
+                Q(arrival_date__icontains=search_query) |
+                Q(remarks__icontains=search_query) |
+                Q(expiration_date__icontains=search_query)
+            ).distinct()
+
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['search_query'] = self.request.GET.get('search_query', '')
+        return context
 
 
 class InventoryDetailView(DetailView):
@@ -269,13 +288,13 @@ class InventoryUpdateView(UpdateView):
         "expiration_date",
         "remarks",
     ]
-    context_object_name = "inventorys"
+    # Removed context_object_name here - DetailView automatically uses the model name
     template_name = "app/inventory_update.html"
     success_url = reverse_lazy("inventory")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["inventory"] = self.object
+        context["inventory"] = self.object  # This is good for consistency
         return context
 
 

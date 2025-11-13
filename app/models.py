@@ -103,7 +103,7 @@ class MedicalRecord(models.Model):
     hearing_description = models.TextField(blank=True, null=True)
     # Permission
     permission = models.CharField(
-        max_length=3, choices=[("yes", "Yes")], blank=True, null=True
+        max_length=3, choices=[("yes", "Yes"), ("no", "No")], blank=True, null=True
     )
     exception = models.TextField(blank=True, null=True)
     # Signature
