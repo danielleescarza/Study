@@ -1,4 +1,10 @@
-env\
-.env\
-environment\
-.environment\
+env/
+.env/
+environment/
+.environment/
+
+__pycache__/
+*.pyc
+
+media/
+staticfiles/
