@@ -5,6 +5,7 @@ environment/
 
 __pycache__/
 *.pyc
+**/migrations/*.pyc
 
 media/
 staticfiles/
