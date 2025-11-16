@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-"# schoolClinic" 
-=======
-# Study
- HEALTH SERVICES MONITORING SYSTEM AT ST. JUDE COLLEGE DASMARIÑAS CAVITE INC. SCHOOL CLINIC
->>>>>>> 2765bff1364e7f32fb6b1614d834dc2e6affb910
+# Health Services Monitoring System For St. Jude College Dasmariñas Cavite Inc. School Clinic
+
+<!-- someone was here, someone cooked here -->
