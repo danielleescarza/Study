@@ -10,6 +10,7 @@
     <link rel="icon" type="image/x-icon" href="{% static 'images/sjcdc_logo.png' %}" />
     <title>SJCDC School Clinic</title>
   </head>
+
   <body id="bg" style="background-image: url('{% static 'images/sjcdc_background.png' %}');">
     <main>
       <div class="login_body">
@@ -20,26 +21,31 @@
               <header>St. Jude College Dasmariñas Cavite Inc. School Clinic</header><br />
               <p>Log in your school clinic account.</p>
             </div>
+
             <form method="POST">
               {% csrf_token %}
               <div class="input-box">
                 <input type="text" class="input-field" placeholder="Username" name="username" required />
               </div>
+
               <div class="input-box" style="position: relative;">
                 <input type="password" id="password" class="input-field" placeholder="Password" name="password" required style="padding-right: 40px;" />
                 <button type="button" id="toggle-password" style="position: absolute; right: 30px; top: 30%; transform: translateY(-50%); background: none; border: none; cursor: pointer; font-size: 18px; color: #707070;">
                   <i class="fas fa-eye"></i>
                 </button>
               </div>
+
               <div class="sign-up-link">
                 <p>Don't have an account? Visit school clinic to request for an account.</p><br /><br />
               </div>
+
               <div class="input-submit">
                 <button class="submit-btn" type="submit"><label>Log In</label></button>
               </div>
             </form>
           </div>
         </div>
+
         <div class="branding">
           <br /><br />
           <img src="{% static 'images/sasamahan.png' %}" style="width: 35%" />
@@ -47,6 +53,7 @@
         </div>
       </div>
     </main>
+
     <script>
       document.getElementById('toggle-password').addEventListener('click', function() {
         var passwordField = document.getElementById('password');
