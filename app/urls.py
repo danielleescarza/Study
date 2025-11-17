@@ -6,6 +6,7 @@ from .views import DashboardPageView, ClinicVisitListView, ClinicVisitDetailView
     ClinicVisitUpdateView, ClinicVisitDeleteView, InventoryListView, InventoryDetailView, InventoryCreateView, \
     InventoryUpdateView, InventoryDeleteView, MedicalRecordListView, MedicalRecordDetailView, MedicalRecordCreateView, \
     MedicalRecordUpdateView, MedicalRecordDeleteView
+
 urlpatterns = [
     path('', DashboardPageView.as_view(), name='dashboard'),
     path('login/', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),

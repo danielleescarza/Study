@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import get_user_model
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, ListView, DetailView
@@ -10,12 +11,10 @@ from django.db.models import Q
 import datetime
 
 
-class DashboardPageView(TemplateView):
+class DashboardPageView(LoginRequiredMixin, TemplateView):
     template_name = "app/dashboard.html"
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
         # Get today's date uwu
         today = datetime.date.today()
 
@@ -31,18 +30,16 @@ class DashboardPageView(TemplateView):
             expiration_date__lte=expiration_threshold, expiration_date__isnull=False
         ).count()
 
-        # Add the visit count, current date, total users, and near expiration count to the context uwu
-        context["visit_count"] = visit_count
-        context["current_date"] = today  # Add current date to context
-        context["total_users"] = total_users  # Add total users to context
-        context["near_expiration_count"] = (
-            near_expiration_count  # Add near expiration count to context
+        return super().get_context_data(
+            visit_count = visit_count,
+            current_date = today,
+            total_users = total_users,
+            near_expiration_count = near_expiration_count,
+            **kwargs
         )
 
-        return context
 
-
-class ClinicVisitListView(ListView):
+class ClinicVisitListView(LoginRequiredMixin, ListView):
     model = ClinicVisit
     context_object_name = "clinicvisits"
     template_name = "app/clinicvisit_list.html"
@@ -70,13 +67,13 @@ class ClinicVisitListView(ListView):
         return context
 
 
-class ClinicVisitDetailView(DetailView):
+class ClinicVisitDetailView(LoginRequiredMixin, DetailView):
     model = ClinicVisit
     context_object_name = "clinicvisit"
     template_name = "app/clinicvisit_detail.html"
 
 
-class ClinicVisitCreateView(CreateView):
+class ClinicVisitCreateView(LoginRequiredMixin, CreateView):
     model = ClinicVisit
     fields = [
         "date",
@@ -90,12 +87,13 @@ class ClinicVisitCreateView(CreateView):
     success_url = reverse_lazy("clinicvisits")
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["users"] = CustomUser.objects.all()
-        return context
+        return super().get_context_data(
+            users = CustomUser.objects.all(),
+            **kwargs
+        )
 
 
-class ClinicVisitUpdateView(UpdateView):
+class ClinicVisitUpdateView(LoginRequiredMixin, UpdateView):
     model = ClinicVisit
     fields = [
         "date",
@@ -109,18 +107,19 @@ class ClinicVisitUpdateView(UpdateView):
     success_url = reverse_lazy("clinicvisits")
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["users"] = CustomUser.objects.all()
-        return context
+        return super().get_context_data(
+            users = CustomUser.objects.all(),
+            **kwargs
+        )
 
 
-class ClinicVisitDeleteView(DeleteView):
+class ClinicVisitDeleteView(LoginRequiredMixin, DeleteView):
     model = ClinicVisit
     template_name = "app/clinicvisit_delete.html"
     success_url = reverse_lazy("clinicvisits")
 
 
-class MedicalRecordListView(ListView):
+class MedicalRecordListView(LoginRequiredMixin, ListView):
     model = MedicalRecord
     context_object_name = "medicalrecords"
     template_name = "app/medicalrecord_list.html"
@@ -143,18 +142,19 @@ class MedicalRecordListView(ListView):
         return queryset
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["search_query"] = self.request.GET.get("search_query", "")
-        return context
+        return super().get_context_data(
+            search_query = self.request.GET.get("search_query", ""),
+            **kwargs
+        )
 
 
-class MedicalRecordDetailView(DetailView):
+class MedicalRecordDetailView(LoginRequiredMixin, DetailView):
     model = MedicalRecord
     context_object_name = "medicalrecord"
     template_name = "app/medicalrecord_detail.html"
 
 
-class MedicalRecordCreateView(CreateView):
+class MedicalRecordCreateView(LoginRequiredMixin, CreateView):
     model = MedicalRecord
     fields = [
         "user",
@@ -195,12 +195,13 @@ class MedicalRecordCreateView(CreateView):
     success_url = reverse_lazy("medicalrecords")
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["users"] = CustomUser.objects.all()
-        return context
+        return super().get_context_data(
+            users = CustomUser.objects.all(),
+            **kwargs
+        )
 
 
-class MedicalRecordUpdateView(UpdateView):
+class MedicalRecordUpdateView(LoginRequiredMixin, UpdateView):
     model = MedicalRecord
     fields = [
         "date_recorded",
@@ -239,18 +240,19 @@ class MedicalRecordUpdateView(UpdateView):
     success_url = reverse_lazy("medicalrecords")
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["users"] = CustomUser.objects.all()
-        return context
+        return super().get_context_data(
+            users = CustomUser.objects.all(),
+            **kwargs
+        )
 
 
-class MedicalRecordDeleteView(DeleteView):
+class MedicalRecordDeleteView(LoginRequiredMixin, DeleteView):
     model = MedicalRecord
     template_name = "app/medicalrecord_delete.html"
     success_url = reverse_lazy("medicalrecords")
 
 
-class InventoryListView(ListView):
+class InventoryListView(LoginRequiredMixin, ListView):
     model = Inventory
     context_object_name = "inventorys"
     template_name = "app/inventory_list.html"  # Make sure this matches your template
@@ -272,18 +274,19 @@ class InventoryListView(ListView):
         return queryset
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["search_query"] = self.request.GET.get("search_query", "")
-        return context
+        return super().get_context_data(
+            search_query = self.request.GET.get("search_query", ""),
+            **kwargs
+        )
 
 
-class InventoryDetailView(DetailView):
+class InventoryDetailView(LoginRequiredMixin, DetailView):
     model = Inventory
     context_object_name = "inventory"
     template_name = "app/inventory_detail.html"
 
 
-class InventoryCreateView(CreateView):
+class InventoryCreateView(LoginRequiredMixin, CreateView):
     model = Inventory
     fields = [
         "inventory_type",
@@ -298,8 +301,9 @@ class InventoryCreateView(CreateView):
     success_url = reverse_lazy("inventory")
 
 
-class InventoryUpdateView(UpdateView):
+class InventoryUpdateView(LoginRequiredMixin, UpdateView):
     model = Inventory
+    context_object_name = "inventory"
     fields = [
         "inventory_type",
         "description",
@@ -313,13 +317,8 @@ class InventoryUpdateView(UpdateView):
     template_name = "app/inventory_update.html"
     success_url = reverse_lazy("inventory")
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["inventory"] = self.object  # This is good for consistency
-        return context
 
-
-class InventoryDeleteView(DeleteView):
+class InventoryDeleteView(LoginRequiredMixin, DeleteView):
     model = Inventory
     template_name = "app/inventory_delete.html"
     success_url = reverse_lazy("inventory")
