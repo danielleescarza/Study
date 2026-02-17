@@ -1,4 +1,4 @@
-# Health Services Monitoring System For St. Jude College Dasmariñas Cavite Inc. School Clinic
+# Clinic Management System for School Clinic at St. Jude College Dasmariñas Cavite Inc.
 
 <!-- someone was here, someone cooked here -->
 
